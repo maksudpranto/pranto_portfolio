@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+/* @plugin "tailwindcss-animate"; */
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -45,12 +47,14 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  --color-brand-dark: var(--brand-dark);
 }
 
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0 0 0);
+  --foreground: oklch(0.15 0.02 90);
+  --brand-dark: oklch(0.15 0.02 90);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0 0 0);
   --popover: oklch(1 0 0);

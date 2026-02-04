@@ -6,58 +6,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+import { PHOTOS } from "@/lib/constants";
+
 export function PhotographyGallery() {
     const [filter, setFilter] = useState("All");
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [visibleCount, setVisibleCount] = useState(4);
 
-    const photos = [
-        {
-            id: 1,
-            title: "Into the Ocean",
-            location: "Teknaf, Cox's Bazar, Bangladesh",
-            date: "Oct 2023",
-            category: "Nature",
-            image: "/images/IMG_0092.jpg",
-            aspect: "aspect-video",
-        },
-        {
-            id: 2,
-            title: "Kyoto After Rain",
-            location: "Kashiani, Bangladesh",
-            date: "May 2023",
-            category: "Urban",
-            image: "/images/kashiani.JPG",
-            aspect: "aspect-[4/4]",
-        },
-        {
-            id: 3,
-            title: "Misty Valleys",
-            location: "Sapa, Vietnam",
-            date: "Aug 2023",
-            category: "Nature",
-            image: "/images/travel_mountain_peak.png",
-            aspect: "aspect-[4/5]",
-        },
-        {
-            id: 4,
-            title: "Midnight Neon",
-            location: "Shibuya, Tokyo",
-            date: "May 2023",
-            category: "Urban",
-            image: "/images/travel_kyoto_street.png",
-            aspect: "aspect-square",
-        },
-        {
-            id: 5,
-            title: "Ocean Solitude",
-            location: "Bali, Indonesia",
-            date: "Jan 2024",
-            category: "Moments",
-            image: "/images/travel_mountain_peak.png",
-            aspect: "aspect-video",
-        }
-    ];
+    const photos = PHOTOS;
 
     const filteredPhotos = filter === "All" ? photos : photos.filter(p => p.category === filter);
     const visiblePhotos = filteredPhotos.slice(0, visibleCount);
@@ -80,7 +36,7 @@ export function PhotographyGallery() {
         <div className="flex flex-col gap-16">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
                 <div className="flex flex-wrap gap-4">
-                    {["All", "Nature", "Urban", "Moments"].map((cat) => (
+                    {["All", "Nature", "Urban", "Moments", "Flower"].map((cat) => (
                         <button
                             key={cat}
                             onClick={() => {
@@ -88,7 +44,7 @@ export function PhotographyGallery() {
                                 setVisibleCount(4);
                             }}
                             className={`px-6 py-2 rounded-full border text-xs font-bold uppercase tracking-widest transition-all ${filter === cat
-                                ? "bg-black text-[#FDC435] border-black"
+                                ? "bg-[#FDC435] text-white border-[#FDC435] shadow-lg shadow-[#FDC435]/20"
                                 : "bg-transparent text-slate-400 border-black/5 hover:border-[#FDC435] hover:text-black"
                                 }`}
                         >
@@ -130,7 +86,7 @@ export function PhotographyGallery() {
                             <div className="flex flex-col gap-4 pl-4">
                                 <div className="flex flex-col gap-1">
                                     <span className="text-[10px] font-black text-[#FDC435] uppercase tracking-[0.3em]">{photo.date}</span>
-                                    <h3 className="text-3xl sm:text-4xl font-black text-black tracking-tight group-hover:text-[#FDC435] transition-colors duration-300">
+                                    <h3 className="text-3xl sm:text-4xl font-black text-zinc-950 tracking-tight group-hover:text-[#FDC435] transition-colors duration-300">
                                         {photo.title}
                                     </h3>
                                 </div>
@@ -206,7 +162,7 @@ export function PhotographyGallery() {
                                 <span className="text-[#FDC435] text-sm font-black uppercase tracking-[0.4em] mb-2">
                                     {filteredPhotos[selectedIndex].date}
                                 </span>
-                                <h3 className="text-4xl sm:text-6xl font-black text-white tracking-tighter leading-none">
+                                <h3 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-none">
                                     {filteredPhotos[selectedIndex].title.toUpperCase()}
                                 </h3>
                                 <p className="text-white/40 text-xs font-bold uppercase tracking-[0.2em] mt-2">

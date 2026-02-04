@@ -1,90 +1,215 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
-import { useState } from "react";
-import { ModeToggle } from "@/components/mode-toggle";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ArrowRight, Github, Twitter, Linkedin, Facebook, Instagram, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
+import { SOCIAL_LINKS } from "@/lib/constants";
 
 const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Projects", href: "/projects" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
+    { name: "Home", href: "/", label: "00" },
+    { name: "Photography", href: "#photography", label: "01" },
+    { name: "Travel Stories", href: "/blog", label: "02" },
+    { name: "About", href: "#about", label: "03" },
 ];
 
 export function Navbar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
+    // Prevent scrolling when menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [isOpen]);
+
     return (
-        <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-xl border-b border-black/5">
-            <div className="max-w-[1400px] mx-auto h-20 flex items-center justify-between px-6 sm:px-12">
-                <Link href="/" className="font-black text-2xl tracking-tighter text-black group flex items-center gap-1">
-                    <span className="text-[#FDC435]">MH</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-black group-hover:bg-[#FDC435] transition-colors" />
-                </Link>
+        <>
+            <header className="fixed top-0 z-[100] w-full bg-white/5 backdrop-blur-md border-b border-black/5">
+                <div className="max-w-[1400px] mx-auto h-20 flex items-center justify-between px-6 sm:px-12">
+                    <Link
+                        href="/"
+                        className="font-black text-2xl tracking-tighter text-black group flex items-center gap-1 z-[110]"
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <span className={cn("transition-colors duration-500", isOpen ? "text-black" : "text-black")}>
+                            <span className="text-[#FDC435]">M</span>H
+                        </span>
+                        <motion.span
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="w-1.5 h-1.5 rounded-full bg-[#FDC435]"
+                        />
+                    </Link>
 
-                {/* Desktop Navigation */}
-                <nav className="hidden md:flex items-center gap-10">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={cn(
-                                "text-sm font-bold tracking-wide transition-all hover:text-[#FDC435]",
-                                pathname === item.href ? "text-black border-b-2 border-[#FDC435]" : "text-slate-500 hover:text-black"
-                            )}
+                    <div className="flex items-center gap-6 z-[110]">
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="group flex items-center gap-4 focus:outline-none"
+                            aria-label="Toggle Menu"
                         >
-                            {item.name}
-                        </Link>
-                    ))}
-                    <Button asChild size="sm" className="rounded-full bg-black hover:bg-[#FDC435] text-white hover:text-black font-bold px-8 shadow-lg shadow-black/10 transition-all hover:scale-105 active:scale-95 border-none">
-                        <Link href="/contact">Work with me</Link>
-                    </Button>
-                </nav>
+                            <span className={cn(
+                                "text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500",
+                                isOpen ? "text-black/40" : "text-black"
+                            )}>
+                                {isOpen ? "Close" : "Menu"}
+                            </span>
 
-                {/* Mobile Navigation */}
-                <div className="md:hidden flex items-center">
-                    <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                        <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon" className="text-black">
-                                <Menu className="h-6 w-6" />
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="right" className="bg-white border-black/10 text-black">
-                            <nav className="flex flex-col gap-8 pt-16">
-                                {navItems.map((item) => (
-                                    <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        onClick={() => setIsOpen(false)}
-                                        className={cn(
-                                            "text-3xl font-black transition-colors uppercase",
-                                            pathname === item.href ? "text-[#FDC435]" : "text-slate-400 hover:text-black"
-                                        )}
-                                    >
-                                        {item.name}
-                                    </Link>
-                                ))}
-                                <Button asChild className="mt-8 bg-black text-white hover:bg-[#FDC435] hover:text-black rounded-full h-14 text-lg font-bold border-none transition-colors">
-                                    <Link href="/contact">Contact Me</Link>
-                                </Button>
-                            </nav>
-                        </SheetContent>
-                    </Sheet>
+                            <div className="relative w-8 h-8 flex flex-col items-center justify-center gap-1.5">
+                                <motion.span
+                                    animate={isOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+                                    className={cn("w-8 h-[2px] bg-black transition-colors rounded-full", isOpen ? "bg-black" : "bg-black")}
+                                />
+                                <motion.span
+                                    animate={isOpen ? { opacity: 0, x: 20 } : { opacity: 1, x: 0 }}
+                                    className="w-8 h-[2px] bg-black rounded-full"
+                                />
+                                <motion.span
+                                    animate={isOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+                                    className={cn("w-8 h-[2px] bg-black transition-colors rounded-full", isOpen ? "bg-black" : "bg-black")}
+                                />
+                            </div>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
+
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: "-100%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: "-100%" }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="fixed inset-0 z-[90] bg-[#FDC435] flex flex-col justify-center px-6 sm:px-12 overflow-hidden"
+                    >
+                        {/* Background Decorative Text */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
+                            <h1 className="text-[20vw] font-black text-black/[0.03] leading-none text-center">
+                                PRANTO
+                            </h1>
+                        </div>
+
+                        <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                            {/* Navigation Links */}
+                            <nav className="lg:col-span-8 flex flex-col gap-4">
+                                {navItems.map((item, i) => (
+                                    <motion.div
+                                        key={item.href}
+                                        initial={{ opacity: 0, x: -50 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
+                                    >
+                                        <Link
+                                            href={item.href}
+                                            onClick={() => setIsOpen(false)}
+                                            className="group relative flex items-baseline gap-6"
+                                        >
+                                            <span className="text-sm font-black text-black/20 group-hover:text-black transition-colors duration-300">
+                                                {item.label}
+                                            </span>
+                                            <span className={cn(
+                                                "text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter uppercase transition-all duration-500",
+                                                pathname === item.href ? "text-black" : "text-black/40 group-hover:text-black group-hover:italic"
+                                            )}>
+                                                {item.name}
+                                            </span>
+                                            <ArrowRight className="w-8 h-8 opacity-0 -translate-x-10 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-black" />
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </nav>
+
+                            {/* Sidebar Info */}
+                            <div className="lg:col-span-4 flex flex-col gap-12 lg:pl-12 lg:border-l border-black/10">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.7 }}
+                                    className="flex flex-col gap-4"
+                                >
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black">Let's Connect</span>
+                                    <div className="flex flex-wrap gap-4">
+                                        {SOCIAL_LINKS.map((social, i) => {
+                                            const Icon: any = social.icon;
+                                            const isPath = typeof Icon === "string";
+                                            return (
+                                                <Link
+                                                    key={i}
+                                                    href={social.href}
+                                                    style={{ '--hover-brand': social.color } as any}
+                                                    className="p-4 bg-white/10 text-white backdrop-blur-sm rounded-2xl hover:bg-[var(--hover-brand)] transition-all duration-500 shadow-lg border border-white/20 group overflow-hidden relative flex items-center justify-center min-w-[52px] min-h-[52px]"
+                                                    title={social.name}
+                                                >
+                                                    <div className="relative z-10 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                                        {isPath ? (
+                                                            <div className="relative w-5 h-5">
+                                                                <Image
+                                                                    src={Icon}
+                                                                    alt={social.name}
+                                                                    fill
+                                                                    className="object-contain"
+                                                                />
+                                                            </div>
+                                                        ) : (
+                                                            <Icon className="w-5 h-5" />
+                                                        )}
+                                                    </div>
+                                                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </motion.div>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.8 }}
+                                    className="flex flex-col gap-4"
+                                >
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black">Office</span>
+                                    <p className="text-lg font-bold text-black/60 leading-tight">
+                                        Dhaka, Bangladesh <br />
+                                        Available Globally.
+                                    </p>
+                                </motion.div>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.9 }}
+                                >
+                                    {/* <Button asChild className="bg-zinc-950 text-[#FDC435] hover:bg-white hover:text-zinc-950 h-16 rounded-full px-10 text-lg font-black border-none transition-all w-full lg:w-fit">
+                                        <Link href="/contact" onClick={() => setIsOpen(false)}>Start a Project</Link>
+                                    </Button> */}
+                                </motion.div>
+                            </div>
+                        </div>
+
+                        {/* Bottom Footer Info in Menu */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1 }}
+                            className="absolute bottom-12 left-6 sm:left-12 right-6 sm:right-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-black/40"
+                        >
+                            <span>© 2026 Maksud Hossain</span>
+                            <span>Powered by Quality & Passion</span>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 }
