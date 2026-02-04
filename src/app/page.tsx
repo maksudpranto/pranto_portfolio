@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Globe, Code, Sparkles, ArrowRight, Github, Twitter, Linkedin, Facebook, Instagram, Mail, Camera, MapPin, SearchCheck, Heart, Briefcase, Settings2, BarChart3, Database } from "lucide-react";
+import { Code, Sparkles, ArrowRight, Github, Twitter, Linkedin, Facebook, Instagram, Mail, Camera, MapPin, SearchCheck, Briefcase, Settings2, Database } from "lucide-react";
 import { PhotographyGallery } from "@/components/photography-gallery";
 import { TravelStories } from "@/components/travel-stories";
+
 import { SOCIAL_LINKS } from "@/lib/constants";
 
 export default function Home() {
@@ -150,7 +151,7 @@ export default function Home() {
       </section>
 
       {/* About Me Narrative Section */}
-      <section className="py-16 sm:py-24 lg:py-32 relative overflow-hidden bg-white">
+      <section id="about" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden bg-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
             {/* Image Collage Side */}
@@ -347,7 +348,7 @@ export default function Home() {
       </section>
 
       {/* Travel Photography (Visual Storytelling) Section */}
-      <section className="py-16 sm:py-24 lg:py-32 bg-white relative overflow-hidden">
+      <section id="photography" className="py-16 sm:py-24 lg:py-32 bg-white relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
             <div className="flex flex-col gap-4">
@@ -366,19 +367,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Travel Stories (Depth & Reflection) Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white relative overflow-hidden">
+      {/* Travel Stories / Blog Section */}
+      <section id="blog" className="py-20 lg:py-32 bg-white relative">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-            <div className="flex flex-col gap-4">
-              <span className="text-[#FDC435] font-bold text-xs tracking-[0.3em] uppercase">Reflection & Depth</span>
-              <h2 className="text-4xl sm:text-6xl font-bold tracking-tight text-black text-left">
-                TRAVEL <br />
-                <span className="italic text-[#FDC435]">STORIES.</span>
-              </h2>
-            </div>
-            <p className="max-w-[450px] text-slate-500 text-lg font-medium leading-relaxed">
-              Beyond the lens, exploring the parallels between the road and life. Reflections on journey, resilience, and balance.
+          {/* Section Header */}
+          <div className="flex flex-col gap-4 mb-20 max-w-2xl">
+            <span className="text-[#FDC435] font-bold text-xs tracking-[0.3em] uppercase">The Written Word</span>
+            <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-black leading-[0.9]">
+              STORIES & <br />
+              <span className="italic text-[#FDC435]">REFLECTIONS.</span>
+            </h2>
+            <p className="text-xl text-slate-500 font-medium mt-6 leading-relaxed">
+              Exploring the intersection of software quality, global travel, and the lessons learned in between.
             </p>
           </div>
 
@@ -386,52 +386,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Strategic Vision Grid */}
-      <section className="py-16 sm:py-24 lg:py-32 bg-slate-50 border-t border-black/5">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              {
-                title: "Automation Architect",
-                description: "Designing end-to-end testing frameworks that scale with complexity and ensure product integrity.",
-                icon: <BarChart3 className="w-8 h-8" />,
-                tag: "CORE ROLE"
-              },
-              {
-                title: "Quality Strategist",
-                description: "Balancing speed and quality to deliver flawless digital experiences at any scale.",
-                icon: <Globe className="w-8 h-8" />,
-                tag: "STRATEGY"
-              },
-              {
-                title: "Persistent Explorer",
-                description: "Applying the same curiosity and attention to detail from SQA to every moment I capture.",
-                icon: <Heart className="w-8 h-8" />,
-                tag: "LIFE"
-              }
-            ].map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="group flex flex-col gap-6 p-6 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] bg-white border border-black/5 hover:border-[#FDC435]/50 transition-all duration-500 hover:shadow-2xl"
-              >
-                <div className="text-black mb-2 p-3 bg-slate-50 rounded-2xl w-fit group-hover:bg-[#FDC435] transition-colors">
-                  {feature.icon}
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase">{feature.tag}</span>
-                  <h3 className="text-2xl font-bold text-black group-hover:text-[#FDC435] transition-colors">{feature.title}</h3>
-                </div>
-                <p className="text-slate-600 leading-relaxed font-medium">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

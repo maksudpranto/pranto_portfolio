@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Footer } from "@/components/footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -41,18 +42,7 @@ export default function RootLayout({
             {children}
           </main>
           <Toaster />
-          <footer className="border-t py-12 bg-white text-slate-500 mt-auto border-black/5">
-            <div className="max-w-[1400px] mx-auto px-6 sm:px-12 flex flex-col items-center justify-between gap-6 md:flex-row">
-              <p className="text-sm font-medium">
-                &copy; {new Date().getFullYear()} MH. Built with Next.js & Tailwind.
-              </p>
-              <div className="flex items-center gap-8">
-                <a href="#" className="text-sm font-bold hover:text-[#FDC435] transition-colors text-black">Github</a>
-                <a href="#" className="text-sm font-bold hover:text-[#FDC435] transition-colors text-black">LinkedIn</a>
-                <a href="#" className="text-sm font-bold hover:text-[#FDC435] transition-colors text-black">Twitter</a>
-              </div>
-            </div>
-          </footer>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

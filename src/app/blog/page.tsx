@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, MapPin, Search } from "lucide-react";
 import { BLOG_POSTS } from "@/lib/constants";
@@ -57,27 +58,42 @@ export default function BlogPage() {
                             >
                                 <Link
                                     href={`/blog/${post.slug}`}
-                                    className="flex flex-col md:flex-row md:items-center justify-between py-8 sm:py-10 group/link transition-all duration-500"
+                                    className="flex flex-col md:flex-row md:items-center justify-between py-10 sm:py-12 group/link transition-all duration-500 gap-10"
                                 >
-                                    <div className="flex flex-col gap-3 max-w-[800px]">
-                                        {/* Metadata line */}
-                                        <div className="flex items-center gap-3 text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                            <span className="text-[#FDC435]">{post.category}</span>
-                                            <span className="w-1 h-1 rounded-full bg-slate-200" />
-                                            <span>{post.location}</span>
-                                            <span className="w-1 h-1 rounded-full bg-slate-200" />
-                                            <span>{post.date}</span>
+                                    <div className="flex flex-col md:flex-row items-center gap-10 flex-1">
+                                        {/* Image Thumbnail */}
+                                        <motion.div
+                                            whileHover={{ scale: 1.05 }}
+                                            className="relative w-full md:w-48 h-32 rounded-xl overflow-hidden grayscale group-hover/link:grayscale-0 transition-all duration-500 border border-black/5"
+                                        >
+                                            <Image
+                                                src={post.image || "/images/placeholder.jpg"}
+                                                alt={post.title}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </motion.div>
+
+                                        <div className="flex flex-col gap-3 max-w-[800px] flex-1">
+                                            {/* Metadata line */}
+                                            <div className="flex items-center gap-3 text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">
+                                                <span className="text-[#FDC435]">{post.category}</span>
+                                                <span className="w-1 h-1 rounded-full bg-slate-200" />
+                                                <span>{post.location}</span>
+                                                <span className="w-1 h-1 rounded-full bg-slate-200" />
+                                                <span>{post.date}</span>
+                                            </div>
+
+                                            {/* Title */}
+                                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black tracking-tighter leading-[1.1] group-hover/link:text-[#FDC435] group-hover/link:italic transition-all duration-500 uppercase">
+                                                {post.title}
+                                            </h2>
+
+                                            {/* Excerpt */}
+                                            <p className="hidden sm:block text-slate-500 text-sm sm:text-base font-medium leading-relaxed max-w-[550px] opacity-60 group-hover/link:opacity-100 transition-opacity duration-500">
+                                                {post.excerpt}
+                                            </p>
                                         </div>
-
-                                        {/* Title */}
-                                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black tracking-tighter leading-[1.1] group-hover/link:text-[#FDC435] group-hover/link:italic transition-all duration-500 uppercase">
-                                            {post.title}
-                                        </h2>
-
-                                        {/* Excerpt */}
-                                        <p className="hidden sm:block text-slate-500 text-sm sm:text-base font-medium leading-relaxed max-w-[550px] opacity-60 group-hover/link:opacity-100 transition-opacity duration-500">
-                                            {post.excerpt}
-                                        </p>
                                     </div>
 
                                     {/* Visual Reveal Arrow */}
