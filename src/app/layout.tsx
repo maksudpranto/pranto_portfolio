@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${inter.variable} ${outfit.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
         <ThemeProvider
           attribute="class"
@@ -37,19 +37,19 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="flex-grow container mx-auto px-4 py-8">
+          <main className="flex-grow">
             {children}
           </main>
           <Toaster />
-          <footer className="border-t py-6 bg-muted/20 mt-auto">
-            <div className="container mx-auto px-4 flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
-              <p className="text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} My Portfolio. Built with Next.js & Tailwind.
+          <footer className="border-t py-12 bg-white text-slate-500 mt-auto border-black/5">
+            <div className="max-w-[1400px] mx-auto px-6 sm:px-12 flex flex-col items-center justify-between gap-6 md:flex-row">
+              <p className="text-sm font-medium">
+                &copy; {new Date().getFullYear()} MH. Built with Next.js & Tailwind.
               </p>
-              <div className="flex items-center gap-4">
-                <a href="#" className="text-sm font-medium hover:underline transition-colors hover:text-primary">Github</a>
-                <a href="#" className="text-sm font-medium hover:underline transition-colors hover:text-primary">LinkedIn</a>
-                <a href="#" className="text-sm font-medium hover:underline transition-colors hover:text-primary">Twitter</a>
+              <div className="flex items-center gap-8">
+                <a href="#" className="text-sm font-bold hover:text-[#FDC435] transition-colors text-black">Github</a>
+                <a href="#" className="text-sm font-bold hover:text-[#FDC435] transition-colors text-black">LinkedIn</a>
+                <a href="#" className="text-sm font-bold hover:text-[#FDC435] transition-colors text-black">Twitter</a>
               </div>
             </div>
           </footer>
