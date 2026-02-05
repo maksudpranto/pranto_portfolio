@@ -151,3 +151,34 @@ export const BLOG_POSTS = [
         `
     }
 ];
+
+export const EDUCATION_DATA = [
+    {
+        degree: "M.Sc in Information and Technology",
+        institution: "Jahangirnagar University",
+        period: "2025 — 2026",
+        location: "Dhaka, Bangladesh",
+        //description: "Focused on Software Engineering, Testing Methodologies, and Web Technologies. Completed several projects on Automated Testing and Quality Assurance."
+    },
+    {
+        degree: "B.Sc in Computer Science & Engineering",
+        institution: "East-West University",
+        period: "2015 — 2019",
+        location: "Dhaka, Bangladesh",
+        //description: "Focused on Software Engineering, Testing Methodologies, and Web Technologies. Completed several projects on Automated Testing and Quality Assurance."
+    },
+    {
+        degree: "H.S.C (Higher Secondary Certificate)",
+        institution: "Kashiani M.A.K College",
+        period: "2011 — 2013",
+        location: "Kashiani,Gopalganj, Bangladesh",
+        //description: "Focused on Software Engineering, Testing Methodologies, and Web Technologies. Completed several projects on Automated Testing and Quality Assurance."
+    },
+    {
+        degree: "S.S.C (Secondary School Certificate)",
+        institution: "Kashiani G.C.Pilot High School",
+        period: "2009 — 2011",
+        location: "Kashiani,Gopalganj, Bangladesh",
+        //description: "Science Group with focus on Mathematics and Physics."
+    }
+];

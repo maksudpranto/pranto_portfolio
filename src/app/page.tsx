@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Code, Sparkles, ArrowRight, Github, Twitter, Linkedin, Facebook, Instagram, Mail, Camera, MapPin, SearchCheck, Briefcase, Settings2, Database } from "lucide-react";
+import { Code, Sparkles, ArrowRight, Github, Twitter, Linkedin, Facebook, Instagram, Mail, Camera, MapPin, SearchCheck, Briefcase, Settings2, Database, GraduationCap } from "lucide-react";
 import { PhotographyGallery } from "@/components/photography-gallery";
 import { TravelStories } from "@/components/travel-stories";
 
-import { SOCIAL_LINKS } from "@/lib/constants";
+import { SOCIAL_LINKS, EDUCATION_DATA } from "@/lib/constants";
 
 export default function Home() {
   return (
@@ -273,6 +273,73 @@ export default function Home() {
                     {exp.period}
                   </span>
                   <div className="h-1 w-12 bg-black/5 group-hover:bg-[#FDC435] transition-colors duration-500" />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Studio-Slick Education Section */}
+      <section className="py-24 sm:py-32 bg-white relative overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#FDC435]/5 rounded-full blur-[120px] -z-10" />
+
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+          <div className="flex flex-col items-start mb-20 gap-4">
+            <span className="text-[#FDC435] font-black text-xs tracking-[0.4em] uppercase">Academic Excellence</span>
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-black leading-none">
+              SCHOLASTIC <br />
+              <span className="text-[#FDC435]">PURSUITS.</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
+            {EDUCATION_DATA.map((edu, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative h-full flex flex-col p-8 sm:p-10 bg-slate-50/50 backdrop-blur-sm hover:bg-white border border-black/5 hover:border-[#FDC435]/50 rounded-[2.5rem] transition-all duration-700 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-20px_rgba(253,196,53,0.15)]"
+              >
+                {/* Large Background Numeral */}
+                <div className="absolute top-4 right-8 text-8xl font-black text-black/[0.03] group-hover:text-[#FDC435]/10 transition-colors duration-700 select-none pointer-events-none">
+                  0{i + 1}
+                </div>
+
+                <div className="relative z-10 flex flex-col h-full gap-8">
+                  {/* Period Badge */}
+                  <div className="flex">
+                    <span className="text-[10px] font-black tracking-[0.2em] uppercase px-3 py-1.5 bg-black text-[#FDC435] rounded-full shadow-lg shadow-black/10">
+                      {edu.period}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col gap-4">
+                    <h3 className="text-2xl sm:text-2xl lg:text-xl xl:text-2xl font-black tracking-tight text-black leading-[1.2] group-hover:text-[#FDC435] transition-colors duration-500">
+                      {edu.degree}
+                    </h3>
+
+                    <div className="flex flex-col gap-3 pt-6 border-t border-black/5">
+                      <div className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#FDC435] mt-1.5 shrink-0" />
+                        <span className="text-slate-900 font-bold text-sm tracking-tight leading-snug">
+                          {edu.institution}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-slate-400 font-bold text-[10px] uppercase tracking-widest pl-4">
+                        <MapPin className="w-3 h-3 text-[#FDC435]" />
+                        {edu.location}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hover Animation Sparkle */}
+                <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <Sparkles className="w-6 h-6 text-[#FDC435] animate-pulse" />
                 </div>
               </motion.div>
             ))}
