@@ -29,6 +29,8 @@ export default async function RootLayout({
 }>) {
   const profile = await reader.singletons.profile.read();
   const footerSettings = (profile as any)?.sections?.footer;
+  const themeColorData = (profile as any)?.appearance?.themeColor;
+  const themeColor = themeColorData?.value || '#FDC435';
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -41,12 +43,12 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <Navbar themeColor={themeColor} />
           <main className="flex-grow">
             {children}
           </main>
           <Toaster />
-          <Footer settings={footerSettings} />
+          <Footer settings={footerSettings} themeColor={themeColor} />
         </ThemeProvider>
       </body>
     </html>

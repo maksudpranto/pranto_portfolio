@@ -3,14 +3,24 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { MapPin, X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 
-export function PhotographyGallery({ photos, accentColor = "#FDC435" }: { photos: any[], accentColor?: string }) {
+export function PhotographyGallery({
+    photos,
+    accentColor = "#FDC435",
+    variant = "default",
+    showLoadMore = true
+}: {
+    photos: any[],
+    accentColor?: string,
+    variant?: "default" | "slick",
+    showLoadMore?: boolean
+}) {
     const [filter, setFilter] = useState("All");
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-    const [visibleCount, setVisibleCount] = useState(4);
+    const [visibleCount, setVisibleCount] = useState(variant === "slick" ? 8 : 4);
 
     const filteredPhotos = filter === "All" ? photos : photos.filter(p => p.category === filter);
     const visiblePhotos = filteredPhotos.slice(0, visibleCount);
@@ -38,7 +48,7 @@ export function PhotographyGallery({ photos, accentColor = "#FDC435" }: { photos
                             key={cat}
                             onClick={() => {
                                 setFilter(cat);
-                                setVisibleCount(4);
+                                setVisibleCount(variant === "slick" ? 8 : 4);
                             }}
                             style={filter === cat ? { backgroundColor: accentColor, borderColor: accentColor } : {}}
                             className={`px-6 py-2 rounded-full border text-xs font-bold uppercase tracking-widest transition-all ${filter === cat
@@ -55,56 +65,109 @@ export function PhotographyGallery({ photos, accentColor = "#FDC435" }: { photos
                 </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                <AnimatePresence mode="popLayout">
-                    {visiblePhotos.map((photo, i) => (
-                        <motion.div
-                            layout
-                            key={photo.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                            className="flex flex-col gap-8 group cursor-zoom-in"
-                            onClick={() => setSelectedIndex(i)}
-                        >
-                            <div className={`relative ${photo.aspect} w-full rounded-[2.5rem] overflow-hidden border border-black/5 bg-slate-50 shadow-xl`}>
-                                <Image
-                                    src={photo.image}
-                                    alt={photo.title}
-                                    fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                />
-                                <div className="absolute top-6 left-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-2">
-                                    <MapPin style={{ color: accentColor }} className="w-3 h-3" />
-                                    <span className="text-[10px] text-white font-bold uppercase tracking-widest">{photo.location}</span>
-                                </div>
-                            </div>
+            {variant === "slick" ? (
+                /* Slick Modern Gallery Style (For Photography Page) */
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-start">
+                    <AnimatePresence mode="popLayout">
+                        {visiblePhotos.map((photo, i) => (
+                            <motion.div
+                                layout
+                                key={photo.id}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                className="group relative cursor-zoom-in overflow-hidden rounded-2xl bg-slate-50 border border-black/5 aspect-[4/5]"
+                                onClick={() => setSelectedIndex(i)}
+                            >
+                                <div className="relative w-full h-full">
+                                    <Image
+                                        src={photo.image}
+                                        alt={photo.title}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
 
-                            <div className="flex flex-col gap-4 pl-4">
-                                <div className="flex flex-col gap-1">
-                                    <span style={{ color: accentColor }} className="text-[10px] font-black uppercase tracking-[0.3em]">{photo.date}</span>
-                                    <h3 style={{ '--hover-color': accentColor } as any} className="text-3xl sm:text-4xl font-black text-zinc-950 tracking-tight group-hover:text-[var(--hover-color)] transition-colors duration-300">
-                                        {photo.title}
-                                    </h3>
+                                    {/* Slick Hover Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                                        <div className="flex flex-col gap-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                            <div className="flex items-center gap-2">
+                                                <MapPin style={{ color: accentColor }} className="w-3 h-3" />
+                                                <span className="text-[10px] text-white/70 font-bold uppercase tracking-[0.2em]">{photo.location}</span>
+                                            </div>
+                                            <h3 className="text-2xl font-black text-white tracking-tight uppercase leading-none">
+                                                {photo.title}
+                                            </h3>
+                                            <span style={{ color: accentColor }} className="text-[10px] font-black uppercase tracking-[0.3em] mt-1">{photo.date}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div style={{ backgroundColor: accentColor }} className="h-[1px] w-12 opacity-30 group-hover:w-full transition-all duration-500" />
-                            </div>
-                        </motion.div>
-                    ))}
-                </AnimatePresence>
-            </div>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </div>
+            ) : (
+                /* Original Bold Gallery Style (For Homepage) */
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                    <AnimatePresence mode="popLayout">
+                        {visiblePhotos.map((photo, i) => (
+                            <motion.div
+                                layout
+                                key={photo.id}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                                className="flex flex-col gap-8 group cursor-zoom-in"
+                                onClick={() => setSelectedIndex(i)}
+                            >
+                                <div className={`relative ${photo.aspect || 'aspect-video'} w-full rounded-[2.5rem] overflow-hidden border border-black/5 bg-slate-50 shadow-xl`}>
+                                    <Image
+                                        src={photo.image}
+                                        alt={photo.title}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                    <div className="absolute top-6 left-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-2">
+                                        <MapPin style={{ color: accentColor }} className="w-3 h-3" />
+                                        <span className="text-[10px] text-white font-bold uppercase tracking-widest">{photo.location}</span>
+                                    </div>
+                                </div>
 
-            {visibleCount < filteredPhotos.length && (
-                <div className="flex justify-center pt-8">
-                    <Button
-                        variant="outline"
-                        onClick={() => setVisibleCount(prev => prev + 2)}
-                        style={{ '--hover-bg': accentColor } as any}
-                        className="h-16 px-12 rounded-full border-2 border-black/5 hover:border-[var(--hover-bg)] hover:bg-[var(--hover-bg)] hover:text-black transition-all font-bold text-lg"
+                                <div className="flex flex-col gap-4 pl-4">
+                                    <div className="flex flex-col gap-1">
+                                        <span style={{ color: accentColor }} className="text-[10px] font-black uppercase tracking-[0.3em]">{photo.date}</span>
+                                        <h3 style={{ '--hover-color': accentColor } as any} className="text-3xl sm:text-4xl font-black text-zinc-950 tracking-tight group-hover:text-[var(--hover-color)] transition-colors duration-300">
+                                            {photo.title}
+                                        </h3>
+                                    </div>
+                                    <div style={{ backgroundColor: accentColor }} className="h-[1px] w-12 opacity-30 group-hover:w-full transition-all duration-500" />
+                                </div>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </div>
+            )}
+
+            {showLoadMore && visibleCount < filteredPhotos.length && (
+                <div className="flex justify-center pt-12">
+                    <button
+                        onClick={() => setVisibleCount(prev => prev + (variant === "slick" ? 8 : 2))}
+                        className="group relative flex items-center gap-4 px-10 py-5 bg-white border border-black/5 rounded-full transition-all duration-700 shadow-sm hover:shadow-xl overflow-hidden"
+                        style={{ '--hover-bg': `${accentColor}1a` } as any}
                     >
-                        Load More Stories
-                    </Button>
+                        <div
+                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-[var(--hover-bg)] to-transparent"
+                            style={{ backgroundImage: `linear-gradient(to right, transparent, ${accentColor}1a, transparent)` }}
+                        />
+                        <div style={{ backgroundColor: accentColor }} className="absolute left-0 top-0 w-1 h-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+                        <span className="text-xs font-black uppercase tracking-[0.3em] text-black group-hover:translate-x-2 transition-transform duration-500">
+                            {variant === "slick" ? "Load More Moments" : "Load More Stories"}
+                        </span>
+                        <div style={{ backgroundColor: accentColor }} className="p-2 rounded-full group-hover:rotate-12 transition-all duration-500 shadow-sm">
+                            <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
+                        </div>
+                    </button>
                 </div>
             )}
 
@@ -150,8 +213,8 @@ export function PhotographyGallery({ photos, accentColor = "#FDC435" }: { photos
                         >
                             <div className="relative w-full max-w-[1000px] h-[60vh] sm:h-[70vh]">
                                 <Image
-                                    src={filteredPhotos[selectedIndex].image}
-                                    alt={filteredPhotos[selectedIndex].title}
+                                    src={visiblePhotos[selectedIndex].image}
+                                    alt={visiblePhotos[selectedIndex].title}
                                     fill
                                     className="object-contain"
                                 />
@@ -159,14 +222,14 @@ export function PhotographyGallery({ photos, accentColor = "#FDC435" }: { photos
 
                             <div className="text-center flex flex-col gap-3 max-w-[800px]">
                                 <span style={{ color: accentColor }} className="text-sm font-black uppercase tracking-[0.4em] mb-2">
-                                    {filteredPhotos[selectedIndex].date}
+                                    {visiblePhotos[selectedIndex].date}
                                 </span>
                                 <h3 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-none">
-                                    {filteredPhotos[selectedIndex].title.toUpperCase()}
+                                    {visiblePhotos[selectedIndex].title?.toUpperCase() || "UNTITLED MOMENT"}
                                 </h3>
                                 <p className="text-white/40 text-xs font-bold uppercase tracking-[0.2em] mt-2">
                                     <MapPin style={{ color: accentColor }} className="w-3 h-3 inline-block mr-2" />
-                                    {filteredPhotos[selectedIndex].location}
+                                    {visiblePhotos[selectedIndex].location}
                                 </p>
                             </div>
                         </motion.div>

@@ -17,8 +17,13 @@ export function TravelStories({ stories, accentColor = "#FDC435" }: { stories: a
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="group relative bg-white border-b border-black/5 hover:bg-gradient-to-r hover:from-[#FDC435]/5 hover:via-[#FDC435]/10 hover:to-transparent transition-all duration-700 overflow-hidden rounded-xl hover:shadow-xl hover:shadow-black/[0.02]"
+                    className="group relative bg-white border-b border-black/5 transition-all duration-700 overflow-hidden rounded-xl hover:shadow-xl hover:shadow-black/[0.02]"
+                    style={{ '--hover-bg': `${accentColor}1a` } as any}
                 >
+                    <div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-[var(--hover-bg)] to-transparent"
+                        style={{ backgroundImage: `linear-gradient(to right, transparent, ${accentColor}0d, transparent)` }}
+                    />
                     <Link
                         href={`/blog/${story.slug}`}
                         className="flex flex-col md:flex-row md:items-center justify-between p-6 sm:p-10 group/link transition-all duration-500 gap-8 sm:gap-12"

@@ -1,8 +1,7 @@
 {
-    "title": "Into the Ocean",
-    "location": "Teknaf, Cox's Bazar, Bangladesh",
-    "date": "Oct 2023",
-    "category": "Nature",
-    "image": "/images/IMG_0092.jpg",
-    "aspect": "aspect-video"
+  "location": "Teknaf, Cox's Bazar, Bangladesh",
+  "date": "Oct 2023",
+  "category": "Nature",
+  "image": "/images/photography/into-the-ocean/image.jpg",
+  "aspect": "aspect-video"
 }

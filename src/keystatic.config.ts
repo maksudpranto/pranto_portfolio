@@ -96,6 +96,39 @@ export default config({
             path: 'src/content/profile',
             format: { data: 'json' },
             schema: {
+                appearance: fields.object({
+                    themeColor: fields.conditional(
+                        fields.select({
+                            label: 'Theme Color Selection Mode',
+                            options: [
+                                { label: 'Curated Palette', value: 'palette' },
+                                { label: 'Custom Hex Code', value: 'custom' },
+                            ],
+                            defaultValue: 'palette',
+                        }),
+                        {
+                            palette: fields.select({
+                                label: 'Choose a Posh Color',
+                                options: [
+                                    { label: 'Studio Gold (Default)', value: '#FDC435' },
+                                    { label: 'Modern Emerald', value: '#10B981' },
+                                    { label: 'Royal Indigo', value: '#6366F1' },
+                                    { label: 'Elegant Rose', value: '#F43F5E' },
+                                    { label: 'Sophisticated Violet', value: '#8B5CF6' },
+                                    { label: 'Warm Amber', value: '#F59E0B' },
+                                    { label: 'Deep Slate', value: '#475569' },
+                                    { label: 'Midnight Blue', value: '#1E293B' },
+                                ],
+                                defaultValue: '#FDC435',
+                            }),
+                            custom: fields.text({
+                                label: 'Custom Hex Color',
+                                defaultValue: '#FDC435',
+                                validation: { length: { min: 4, max: 7 } },
+                            }),
+                        }
+                    ),
+                }, { label: 'Site Appearance' }),
                 sections: fields.object({
                     basic: fields.object({
                         name: fields.text({ label: 'Name' }),
@@ -136,7 +169,8 @@ export default config({
                     }, { label: 'My Narrative Section' }),
                     experience: fields.object({
                         label: fields.text({ label: 'Section Label', defaultValue: 'Professional Path' }),
-                        heading: fields.text({ label: 'Heading', defaultValue: 'JOURNEY.' }),
+                        headingNormal: fields.text({ label: 'Heading (Normal)', defaultValue: 'PROFESSIONAL' }),
+                        headingAccent: fields.text({ label: 'Heading (Accent)', defaultValue: 'JOURNEY.' }),
                         accentColor: fields.text({ label: 'Experience Accent Color', defaultValue: '#FDC435' }),
                     }, { label: 'Professional Path Section' }),
                     education: fields.object({

@@ -13,13 +13,13 @@ const iconMap: Record<string, any> = {
     ...Io,
 };
 
-export function HomeClient({ profile, experiences, education, settings }: any) {
+export function HomeClient({ profile, experiences, education, settings, themeColor }: any) {
     if (!profile) return null;
 
-    const heroAccent = settings?.hero?.accentColor || "#FDC435";
-    const aboutAccent = settings?.about?.accentColor || "#FDC435";
-    const expAccent = settings?.experience?.accentColor || "#FDC435";
-    const eduAccent = settings?.education?.accentColor || "#FDC435";
+    const heroAccent = themeColor;
+    const aboutAccent = themeColor;
+    const expAccent = themeColor;
+    const eduAccent = themeColor;
 
     const basicInfo = settings?.basic;
     const name = basicInfo?.name || "Maksud Hossain";
@@ -30,7 +30,9 @@ export function HomeClient({ profile, experiences, education, settings }: any) {
     return (
         <>
             {/* "Studio-Slick" Personalized Hero Section */}
-            <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden border-b border-black/5">
+            <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+                {/* Dynamic Background Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" style={{ backgroundImage: `linear-gradient(to bottom, #ffffff, ${themeColor}0d, #ffffff)` }} />
                 {/* Subtle Background Textures */}
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                     <div style={{ backgroundColor: `${heroAccent}1a` }} className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px]" />
@@ -51,12 +53,12 @@ export function HomeClient({ profile, experiences, education, settings }: any) {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.2 }}
-                                    className="flex items-center gap-3 text-black text-sm tracking-wide uppercase font-bold"
+                                    className="flex items-center gap-3 text-black text-xs tracking-[0.4em] uppercase font-black"
                                 >
-                                    <div style={{ backgroundColor: heroAccent }} className="h-[2px] w-8" />
+                                    <div style={{ backgroundColor: heroAccent }} className="h-[2px] w-8 translate-y-px" />
                                     {settings?.hero?.rolePrefix ? `${settings.hero.rolePrefix} ${role}` : role}
                                 </motion.div>
-                                <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1] text-black uppercase">
+                                <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none text-black uppercase">
                                     {settings?.hero?.titleFirst || name.split(' ')[0]} <span style={{ color: heroAccent }}>{settings?.hero?.titleSecond || name.split(' ')[1]}</span>
                                 </h1>
                             </div>
@@ -83,10 +85,11 @@ export function HomeClient({ profile, experiences, education, settings }: any) {
                                             rel="noopener noreferrer"
                                             whileHover={{ y: -8, scale: 1.15, rotate: 5 }}
                                             whileTap={{ scale: 0.95 }}
-                                            style={{ backgroundColor: heroAccent, '--hover-color': social.color } as any}
-                                            className="p-3.5 sm:p-4 text-white rounded-2xl hover:bg-[var(--hover-color)] transition-all duration-500 shadow-xl shadow-black/10 hover:shadow-[var(--hover-color)]/40 group relative overflow-hidden flex items-center justify-center min-w-[48px] min-h-[48px] sm:min-w-[52px] sm:min-h-[52px]"
+                                            style={{ backgroundColor: heroAccent, '--hover-color': heroAccent } as any}
+                                            className="p-3.5 sm:p-4 text-white rounded-2xl transition-all duration-500 shadow-xl shadow-black/10 hover:shadow-[var(--hover-color)]/40 group relative overflow-hidden flex items-center justify-center min-w-[48px] min-h-[48px] sm:min-w-[52px] sm:min-h-[52px]"
                                             title={social.label}
                                         >
+                                            <div style={{ backgroundColor: social.color }} className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                             <div className="relative z-10 transition-transform group-hover:scale-110 flex items-center justify-center">
                                                 {isPath ? (
                                                     <div className="relative w-5 h-5">
@@ -155,8 +158,13 @@ export function HomeClient({ profile, experiences, education, settings }: any) {
                 </div>
             </section>
 
+            {/* Section Separator */}
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-black/5 to-transparent" />
+
             {/* About Me Narrative Section */}
-            <section id="about" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden bg-white">
+            <section id="about" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
+                {/* Dynamic Background Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" style={{ backgroundImage: `linear-gradient(to bottom, #ffffff, ${themeColor}0d, #ffffff)` }} />
                 <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
                         {/* Image Collage Side */}
@@ -187,12 +195,12 @@ export function HomeClient({ profile, experiences, education, settings }: any) {
 
                         {/* Narrative Content Side */}
                         <div className="lg:col-span-7 flex flex-col gap-8 order-1 lg:order-2">
-                            <div className="flex flex-col gap-4">
-                                <span style={{ color: aboutAccent }} className="font-black text-xs tracking-[0.3em] uppercase">{settings?.about?.label || 'My Narrative'}</span>
-                                <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-black uppercase">
+                            <div className="flex flex-col gap-4 relative z-10">
+                                <span style={{ color: aboutAccent }} className="font-black text-xs tracking-[0.4em] uppercase">{settings?.about?.label || 'My Narrative'}</span>
+                                <h2 className="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter leading-none text-black uppercase">
                                     {settings?.about?.headingNormal?.split(' ').slice(0, -1).join(' ') || 'THE INTERSECTION'} <br />
                                     {settings?.about?.headingNormal?.split(' ').slice(-1) || 'OF PRECISION &'} <br />
-                                    <span style={{ color: aboutAccent }} className="italic">{settings?.about?.headingItalic || 'EXPLORATION.'}</span>
+                                    <span style={{ color: aboutAccent }} className="italic font-black">{settings?.about?.headingItalic || 'EXPLORATION.'}</span>
                                 </h2>
                             </div>
 
@@ -217,12 +225,20 @@ export function HomeClient({ profile, experiences, education, settings }: any) {
                 </div>
             </section>
 
+            {/* Section Separator */}
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-black/5 to-transparent" />
+
             {/* Simplified Professional Experience Section */}
-            <section className="py-16 sm:py-24 lg:py-32 bg-slate-50 border-y border-black/5 overflow-hidden">
+            <section className="py-16 sm:py-24 lg:py-32 overflow-hidden relative">
+                {/* Dynamic Background Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" style={{ backgroundImage: `linear-gradient(to bottom, #ffffff, ${themeColor}0d, #ffffff)` }} />
                 <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
-                    <div className="flex flex-col mb-16 gap-4">
-                        <span style={{ color: expAccent }} className="font-black text-xs tracking-[0.3em] uppercase">{settings?.experience?.label || 'Professional Path'}</span>
-                        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-black uppercase">{settings?.experience?.heading || 'JOURNEY.'}</h2>
+                    <div className="flex flex-col mb-16 gap-4 relative z-10">
+                        <span style={{ color: expAccent }} className="font-black text-xs tracking-[0.4em] uppercase">{settings?.experience?.label || 'Professional Path'}</span>
+                        <h2 className="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter leading-none text-black uppercase">
+                            {settings?.experience?.headingNormal || 'PROFESSIONAL'} <br />
+                            <span style={{ color: expAccent }}>{settings?.experience?.headingAccent || 'JOURNEY.'}</span>
+                        </h2>
                     </div>
 
                     <div className="grid grid-cols-1 gap-6">
@@ -233,8 +249,13 @@ export function HomeClient({ profile, experiences, education, settings }: any) {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
-                                className="group relative flex flex-col sm:flex-row sm:items-center justify-between p-6 sm:p-10 bg-white border-b border-black/5 hover:bg-gradient-to-r hover:from-[#FDC435]/5 hover:via-[#FDC435]/10 hover:to-transparent transition-all duration-700 overflow-hidden rounded-xl hover:shadow-xl hover:shadow-black/[0.02]"
+                                className="group relative flex flex-col sm:flex-row sm:items-center justify-between p-6 sm:p-10 bg-white border-b border-black/5 transition-all duration-700 overflow-hidden rounded-xl hover:shadow-xl hover:shadow-black/[0.02]"
+                                style={{ '--hover-bg': `${themeColor}0d` } as any}
                             >
+                                <div
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                                    style={{ backgroundImage: `linear-gradient(to right, transparent, ${themeColor}0d, transparent)` }}
+                                />
                                 {/* Slick Left Accent on Hover */}
                                 <div style={{ backgroundColor: expAccent }} className="absolute left-0 top-0 w-1 h-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
 
@@ -262,15 +283,20 @@ export function HomeClient({ profile, experiences, education, settings }: any) {
                 </div>
             </section>
 
+            {/* Section Separator */}
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-black/5 to-transparent" />
+
             {/* Premium Studio-Slick Education Section */}
-            <section className="py-24 sm:py-32 bg-white relative overflow-hidden">
+            <section className="py-24 sm:py-32 relative overflow-hidden">
+                {/* Dynamic Background Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" style={{ backgroundImage: `linear-gradient(to bottom, #ffffff, ${themeColor}0d, #ffffff)` }} />
                 {/* Decorative Background Elements */}
                 <div style={{ backgroundColor: `${eduAccent}0d` }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full blur-[120px] -z-10" />
 
                 <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
-                    <div className="flex flex-col items-start mb-20 gap-4">
+                    <div className="flex flex-col items-start mb-20 gap-4 relative z-10">
                         <span style={{ color: eduAccent }} className="font-black text-xs tracking-[0.4em] uppercase">{settings?.education?.label || 'Academic Excellence'}</span>
-                        <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-black leading-none uppercase">
+                        <h2 className="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter text-black leading-none uppercase">
                             {settings?.education?.headingNormal || 'SCHOLASTIC'} <br />
                             <span style={{ color: eduAccent }}>{settings?.education?.headingAccent || 'PURSUITS.'}</span>
                         </h2>
@@ -284,8 +310,13 @@ export function HomeClient({ profile, experiences, education, settings }: any) {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                className="group relative p-6 sm:p-10 bg-white border-b border-black/5 hover:bg-gradient-to-r hover:from-[#FDC435]/5 hover:via-[#FDC435]/10 hover:to-transparent transition-all duration-700 overflow-hidden rounded-xl hover:shadow-xl hover:shadow-black/[0.02]"
+                                className="group relative p-6 sm:p-10 bg-white border-b border-black/5 transition-all duration-700 overflow-hidden rounded-xl hover:shadow-xl hover:shadow-black/[0.02]"
+                                style={{ '--hover-bg': `${themeColor}0d` } as any}
                             >
+                                <div
+                                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                                    style={{ backgroundImage: `linear-gradient(to right, transparent, ${themeColor}0d, transparent)` }}
+                                />
                                 {/* Slick Left Accent on Hover */}
                                 <div style={{ backgroundColor: eduAccent }} className="absolute left-0 top-0 w-1.5 h-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
 

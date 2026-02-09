@@ -6,9 +6,9 @@ import Image from "next/image";
 import { ArrowUpRight, Heart, Coffee, Mail, Home, User, Camera, BookOpen } from "lucide-react";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
-export function Footer({ settings }: { settings?: any }) {
+export function Footer({ settings, themeColor }: { settings?: any, themeColor?: string }) {
     const currentYear = new Date().getFullYear();
-    const accentColor = settings?.accentColor || "#FDC435";
+    const accentColor = themeColor || settings?.accentColor || "#FDC435";
 
     return (
         <footer className="relative bg-white/90 backdrop-blur-md text-zinc-950 overflow-hidden pt-12 pb-6 border-t border-black/5 shadow-[0_-20px_80px_-20px_rgba(0,0,0,0.1)] z-50">
@@ -116,20 +116,23 @@ export function Footer({ settings }: { settings?: any }) {
                                         >
                                             <div
                                                 style={{ backgroundColor: accentColor, boxShadow: `0 10px 15px -3px ${accentColor}33` } as any}
-                                                className="p-2 rounded-lg group-hover:bg-[var(--hover-color)] transition-colors duration-300 flex items-center justify-center shadow-md"
+                                                className="p-2 rounded-lg group-hover:bg-black transition-colors duration-300 flex items-center justify-center shadow-md relative overflow-hidden"
                                             >
-                                                {isPath ? (
-                                                    <div className="relative w-4 h-4">
-                                                        <Image
-                                                            src={Icon}
-                                                            alt={social.label}
-                                                            fill
-                                                            className="object-contain group-hover:invert"
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <Icon className="w-4 h-4 text-black group-hover:text-white transition-colors" />
-                                                )}
+                                                <div style={{ backgroundColor: social.color }} className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                                <div className="relative z-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                                    {isPath ? (
+                                                        <div className="relative w-4 h-4">
+                                                            <Image
+                                                                src={Icon}
+                                                                alt={social.label}
+                                                                fill
+                                                                className="object-contain group-hover:invert"
+                                                            />
+                                                        </div>
+                                                    ) : (
+                                                        <Icon className="w-4 h-4 text-black group-hover:text-white transition-colors" />
+                                                    )}
+                                                </div>
                                             </div>
                                             <span>{social.label}</span>
                                         </motion.a>

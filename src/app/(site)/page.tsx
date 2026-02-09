@@ -12,6 +12,8 @@ export default async function Home() {
   const profile = await reader.singletons.profile.read();
 
   // Extract settings from the consolidated profile data
+  const themeColorData = (profile as any)?.appearance?.themeColor;
+  const themeColor = themeColorData?.value || '#FDC435';
   const settings = (profile as any)?.sections;
 
   const experienceEntries = await reader.collections.experience.all();
@@ -54,18 +56,24 @@ export default async function Home() {
         experiences={experiences}
         education={education}
         settings={settings}
+        themeColor={themeColor}
       />
 
+      {/* Section Separator */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-black/5 to-transparent" />
+
       {/* Photography Section */}
-      <section id="photography" className="py-24 sm:py-32 bg-white relative">
+      <section id="photography" className="py-24 sm:py-32 relative">
+        {/* Dynamic Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" style={{ backgroundImage: `linear-gradient(to bottom, #ffffff, ${themeColor}0d, #ffffff)` }} />
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="flex flex-col mb-16 gap-4">
-            <span style={{ color: settings?.photography?.accentColor || '#FDC435' }} className="font-black text-xs tracking-[0.4em] uppercase">
+          <div className="flex flex-col mb-16 gap-4 relative z-10">
+            <span style={{ color: themeColor }} className="font-black text-xs tracking-[0.4em] uppercase">
               {settings?.photography?.label || 'Visual Journal'}
             </span>
             <h2 className="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter text-black leading-none uppercase">
               {settings?.photography?.headingNormal || 'STILL'} <br />
-              <span style={{ color: settings?.photography?.accentColor || '#FDC435' }}>
+              <span style={{ color: themeColor }}>
                 {settings?.photography?.headingAccent || 'MOMENTS.'}
               </span>
             </h2>
@@ -73,20 +81,50 @@ export default async function Home() {
               {settings?.photography?.description}
             </p>
           </div>
-          <PhotographyGallery photos={photos} accentColor={settings?.photography?.accentColor} />
+          <PhotographyGallery
+            photos={photos}
+            accentColor={themeColor}
+            showLoadMore={false}
+          />
+
+          {/* See All Moments Button */}
+          <div className="flex justify-center mt-16 relative z-10">
+            <Link
+              href="/photography"
+              className="group relative flex items-center gap-6 px-12 py-6 bg-white/80 backdrop-blur-md border border-black/5 rounded-full transition-all duration-700 shadow-sm hover:shadow-2xl overflow-hidden"
+              style={{ '--hover-bg': `${themeColor}1a`, '--accent-shadow': `${themeColor}1a` } as any}
+            >
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-[var(--hover-bg)] to-transparent"
+                style={{ backgroundImage: `linear-gradient(to right, transparent, ${themeColor}1a, transparent)` }}
+              />
+              <div style={{ backgroundColor: themeColor }} className="absolute left-0 top-0 w-1.5 h-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+              <span className="text-sm font-black uppercase tracking-[0.4em] text-black group-hover:translate-x-2 transition-transform duration-500 relative z-10">
+                See All Moments
+              </span>
+              <div style={{ backgroundColor: themeColor }} className="p-3 rounded-full group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-md relative z-10">
+                <ArrowRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+          </div>
         </div>
       </section>
 
+      {/* Section Separator */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-black/5 to-transparent" />
+
       {/* Blog Section */}
-      <section id="blog" className="py-24 sm:py-32 bg-slate-50 border-t border-black/5">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
+      <section id="blog" className="py-24 sm:py-32 relative">
+        {/* Dynamic Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" style={{ backgroundImage: `linear-gradient(to bottom, #ffffff, ${themeColor}0d, #ffffff)` }} />
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           <div className="flex flex-col mb-16 gap-4">
-            <span style={{ color: settings?.blog?.accentColor || '#FDC435' }} className="font-black text-xs tracking-[0.4em] uppercase">
+            <span style={{ color: themeColor }} className="font-black text-xs tracking-[0.4em] uppercase">
               {settings?.blog?.label || 'Travel Chronicles'}
             </span>
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter text-black leading-none uppercase">
+            <h2 className="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter text-black leading-none uppercase">
               {settings?.blog?.headingNormal || 'DISPATCHES FROM THE'} <br />
-              <span style={{ color: settings?.blog?.accentColor || '#FDC435' }}>
+              <span style={{ color: themeColor }}>
                 {settings?.blog?.headingAccent || 'ROAD.'}
               </span>
             </h2>
@@ -94,19 +132,24 @@ export default async function Home() {
               {settings?.blog?.description}
             </p>
           </div>
-          <TravelStories stories={stories} accentColor={settings?.blog?.accentColor} />
+          <TravelStories stories={stories} accentColor={themeColor} />
 
           {/* See All Stories Button */}
           <div className="flex justify-center mt-16">
             <Link
               href="/blog"
-              className="group relative flex items-center gap-4 px-10 py-5 bg-white border border-black/5 rounded-full hover:bg-gradient-to-r hover:from-[#FDC435]/5 hover:via-[#FDC435]/10 hover:to-transparent transition-all duration-700 shadow-sm hover:shadow-xl hover:shadow-[#FDC435]/5 overflow-hidden"
+              className="group relative flex items-center gap-4 px-10 py-5 bg-white border border-black/5 rounded-full transition-all duration-700 shadow-sm hover:shadow-xl overflow-hidden"
+              style={{ '--hover-bg': `${themeColor}0d` } as any}
             >
-              <div style={{ backgroundColor: settings?.blog?.accentColor || '#FDC435' }} className="absolute left-0 top-0 w-1 h-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-              <span className="text-sm font-black uppercase tracking-[0.3em] text-black group-hover:translate-x-2 transition-transform duration-500">
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-[var(--hover-bg)] to-transparent"
+                style={{ backgroundImage: `linear-gradient(to right, transparent, ${themeColor}1a, transparent)` }}
+              />
+              <div style={{ backgroundColor: themeColor }} className="absolute left-0 top-0 w-1 h-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+              <span className="text-sm font-black uppercase tracking-[0.3em] text-black group-hover:translate-x-2 transition-transform duration-500 relative z-10">
                 See All Stories
               </span>
-              <div style={{ backgroundColor: settings?.blog?.accentColor || '#FDC435' }} className="p-2 rounded-full group-hover:rotate-12 transition-all duration-500 shadow-sm">
+              <div style={{ backgroundColor: themeColor }} className="p-2 rounded-full group-hover:rotate-12 transition-all duration-500 shadow-sm relative z-10">
                 <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>

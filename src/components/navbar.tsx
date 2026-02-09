@@ -17,7 +17,7 @@ const navItems = [
     { name: "About", href: "#about", label: "03" },
 ];
 
-export function Navbar() {
+export function Navbar({ themeColor = "#FDC435" }: { themeColor?: string }) {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -43,12 +43,13 @@ export function Navbar() {
                         onClick={() => setIsOpen(false)}
                     >
                         <span className={cn("transition-colors duration-500", isOpen ? "text-black" : "text-black")}>
-                            <span className="text-[#FDC435]">M</span>H
+                            <span style={{ color: themeColor }}>M</span>H
                         </span>
                         <motion.span
                             animate={{ scale: [1, 1.2, 1] }}
                             transition={{ duration: 2, repeat: Infinity }}
-                            className="w-1.5 h-1.5 rounded-full bg-[#FDC435]"
+                            style={{ backgroundColor: themeColor }}
+                            className="w-1.5 h-1.5 rounded-full"
                         />
                     </Link>
 
@@ -91,7 +92,8 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: "-100%" }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="fixed inset-0 z-[90] bg-[#FDC435] flex flex-col justify-center px-6 sm:px-12 overflow-hidden"
+                        style={{ backgroundColor: themeColor }}
+                        className="fixed inset-0 z-[90] flex flex-col justify-center px-6 sm:px-12 overflow-hidden"
                     >
                         {/* Background Decorative Text */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
@@ -148,9 +150,10 @@ export function Navbar() {
                                                     key={i}
                                                     href={social.href}
                                                     style={{ '--hover-brand': social.color } as any}
-                                                    className="p-4 bg-white/10 text-white backdrop-blur-sm rounded-2xl hover:bg-[var(--hover-brand)] transition-all duration-500 shadow-lg border border-white/20 group overflow-hidden relative flex items-center justify-center min-w-[52px] min-h-[52px]"
+                                                    className="p-4 bg-black/10 text-white backdrop-blur-sm rounded-2xl transition-all duration-500 shadow-lg border border-white/20 group overflow-hidden relative flex items-center justify-center min-w-[52px] min-h-[52px]"
                                                     title={social.name}
                                                 >
+                                                    <div style={{ backgroundColor: social.color }} className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                                     <div className="relative z-10 group-hover:scale-110 transition-transform flex items-center justify-center">
                                                         {isPath ? (
                                                             <div className="relative w-5 h-5">
@@ -165,7 +168,6 @@ export function Navbar() {
                                                             <Icon className="w-5 h-5" />
                                                         )}
                                                     </div>
-                                                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
                                                 </Link>
                                             );
                                         })}
