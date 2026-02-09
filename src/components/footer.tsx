@@ -3,12 +3,22 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Heart, Coffee, Mail, Home, User, Camera, BookOpen } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
-export function Footer({ settings, themeColor }: { settings?: any, themeColor?: string }) {
+export function Footer({ settings, themeColor, footerLinks = [] }: { settings?: any, themeColor?: string, footerLinks?: any[] }) {
     const currentYear = new Date().getFullYear();
     const accentColor = themeColor || settings?.accentColor || "#FDC435";
+    const { Mail, Home, User, Camera, BookOpen } = LucideIcons;
+
+    const defaultFooterLinks = [
+        { name: 'Home', href: '/', icon: 'Home' },
+        { name: 'About', href: '/#about', icon: 'User' },
+        { name: 'Photography', href: '/#photography', icon: 'Camera' },
+        { name: 'Blog', href: '/blog', icon: 'BookOpen' }
+    ];
+
+    const linksToRender = footerLinks && footerLinks.length > 0 ? footerLinks : defaultFooterLinks;
 
     return (
         <footer className="relative bg-white/90 backdrop-blur-md text-zinc-950 overflow-hidden pt-12 pb-6 border-t border-black/5 shadow-[0_-20px_80px_-20px_rgba(0,0,0,0.1)] z-50">
@@ -52,7 +62,7 @@ export function Footer({ settings, themeColor }: { settings?: any, themeColor?: 
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
                             <a
-                                href={`mailto:${settings?.email || "maksudpranto@gmail.com"}`}
+                                href={settings?.buttonLink || `mailto:${settings?.email || "maksudpranto@gmail.com"}`}
                                 style={{ '--hover-bg': accentColor } as any}
                                 className="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--hover-bg)] hover:text-black transition-all duration-300 group shadow-xl shadow-black/5"
                             >
@@ -73,22 +83,22 @@ export function Footer({ settings, themeColor }: { settings?: any, themeColor?: 
                         >
                             <h3 style={{ color: accentColor }} className="text-sm font-bold tracking-[0.2em] uppercase">Explore</h3>
                             <div className="flex flex-col gap-4">
-                                {[
-                                    { name: 'Home', href: '/', icon: Home },
-                                    { name: 'About', href: '/#about', icon: User },
-                                    { name: 'Photography', href: '/#photography', icon: Camera },
-                                    { name: 'Blog', href: '/blog', icon: BookOpen }
-                                ].map((item) => (
-                                    <Link
-                                        key={item.name}
-                                        href={item.href}
-                                        style={{ '--hover-color': accentColor } as any}
-                                        className="text-lg font-bold text-zinc-950 hover:text-[var(--hover-color)] transition-colors w-fit group flex items-center gap-3"
-                                    >
-                                        <item.icon className="w-5 h-5 text-slate-400 group-hover:text-[var(--hover-color)] transition-colors" />
-                                        <span>{item.name}</span>
-                                    </Link>
-                                ))}
+                                {linksToRender.map((item: any) => {
+                                    // Dynamic Icon logic
+                                    const IconComponent = (LucideIcons as any)[item.footerIcon || item.icon] || LucideIcons.ArrowRight;
+
+                                    return (
+                                        <Link
+                                            key={item.name}
+                                            href={item.href}
+                                            style={{ '--hover-color': accentColor } as any}
+                                            className="text-lg font-bold text-zinc-950 hover:text-[var(--hover-color)] transition-colors w-fit group flex items-center gap-3"
+                                        >
+                                            <IconComponent className="w-5 h-5 text-slate-400 group-hover:text-[var(--hover-color)] transition-colors" />
+                                            <span>{item.name}</span>
+                                        </Link>
+                                    )
+                                })}
                             </div>
                         </motion.div>
 

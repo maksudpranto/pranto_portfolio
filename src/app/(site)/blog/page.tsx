@@ -3,7 +3,9 @@ import { reader } from "@/lib/keystatic";
 
 export default async function BlogPage() {
     const profile = await reader.singletons.profile.read();
-    const settings = (profile as any)?.sections?.blog;
+    const pageData = await reader.singletons.blogPage.read();
+    const settings = pageData || (profile as any)?.sections?.blog;
+
     const themeColorData = (profile as any)?.appearance?.themeColor;
     const themeColor = themeColorData?.value || '#FDC435';
     const accentColor = themeColor;

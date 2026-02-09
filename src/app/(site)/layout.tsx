@@ -31,6 +31,9 @@ export default async function RootLayout({
   const footerSettings = (profile as any)?.sections?.footer;
   const themeColorData = (profile as any)?.appearance?.themeColor;
   const themeColor = themeColorData?.value || '#FDC435';
+  const navigationSettings = (profile as any)?.sections?.navigation?.links || [];
+  const footerLinks = navigationSettings.filter((link: any) => link.showInFooter);
+  const menuBackgroundText = (profile as any)?.sections?.navigation?.menuBackgroundText || 'PRANTO';
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -43,12 +46,12 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar themeColor={themeColor} />
+          <Navbar themeColor={themeColor} navLinks={navigationSettings} menuBackgroundText={menuBackgroundText} />
           <main className="flex-grow">
             {children}
           </main>
           <Toaster />
-          <Footer settings={footerSettings} themeColor={themeColor} />
+          <Footer settings={footerSettings} themeColor={themeColor} footerLinks={footerLinks} />
         </ThemeProvider>
       </body>
     </html>

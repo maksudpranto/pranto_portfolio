@@ -49,18 +49,32 @@ export function TravelStories({ stories, accentColor = "#FDC435" }: { stories: a
                             <div className="flex flex-col gap-4 max-w-[800px] flex-1">
                                 {/* Refined Metadata line */}
                                 <div className="flex flex-wrap items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <span style={{ color: accentColor }} className="px-3 py-1 bg-black text-white rounded-full text-[9px]">{story.category}</span>
-                                    <div className="flex items-center gap-2">
-                                        <MapPin style={{ color: accentColor }} className="w-3 h-3" />
-                                        <span>{story.location}</span>
-                                    </div>
-                                    <span className="w-1 h-1 rounded-full bg-slate-200" />
-                                    <span>{story.date}</span>
+                                    {story.category && (
+                                        <span style={{ color: accentColor }} className="px-3 py-1 bg-black text-white rounded-full text-[9px]">{story.category}</span>
+                                    )}
+                                    {story.location && (
+                                        <div className="flex items-center gap-2">
+                                            <MapPin style={{ color: accentColor }} className="w-3 h-3" />
+                                            <span>{story.location}</span>
+                                        </div>
+                                    )}
+                                    {story.date && (
+                                        <>
+                                            <span className="w-1 h-1 rounded-full bg-slate-200" />
+                                            <span>
+                                                {new Date(story.date).toLocaleDateString('en-US', {
+                                                    month: 'long',
+                                                    day: '2-digit',
+                                                    year: 'numeric'
+                                                })}
+                                            </span>
+                                        </>
+                                    )}
                                 </div>
 
                                 {/* Posh Title */}
                                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black tracking-tight leading-[1.1] group-hover/link:translate-x-3 transition-transform duration-500 uppercase">
-                                    {story.title}
+                                    {story.title || story.slug?.replace(/-/g, ' ')}
                                 </h3>
 
                                 {/* Excerpt */}

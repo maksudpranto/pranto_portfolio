@@ -3,6 +3,6 @@
   "date": "January 2024",
   "category": "nature",
   "image": "/images/photography/Phi Phi Falls/image.jpg",
-  "showOnHomepage": false,
+  "showOnHomepage": true,
   "aspect": "aspect-video"
 }

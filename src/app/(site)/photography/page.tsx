@@ -3,7 +3,12 @@ import { PhotographyGallery } from "@/components/photography-gallery";
 
 export default async function PhotographyPage() {
     const profile = await reader.singletons.profile.read();
-    const settings = (profile as any)?.sections?.photography;
+    const pageData = await reader.singletons.photographyPage.read();
+
+    // Fallback to profile section settings if page singleton is empty (for backward compatibility or if user hasn't filled it yet)
+    // But ideally we rely on pageData defaults.
+    const settings = pageData || (profile as any)?.sections?.photography;
+
     const themeColorData = (profile as any)?.appearance?.themeColor;
     const themeColor = themeColorData?.value || '#FDC435';
     const accentColor = themeColor;

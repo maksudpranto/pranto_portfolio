@@ -10,14 +10,15 @@ import { X, ArrowRight, Github, Twitter, Linkedin, Facebook, Instagram, Mail } f
 import { useState, useEffect } from "react";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
-const navItems = [
+const defaultNavItems = [
     { name: "Home", href: "/", label: "00" },
-    { name: "Photography", href: "#photography", label: "01" },
+    { name: "Photography", href: "/#photography", label: "01" },
     { name: "Travel Stories", href: "/blog", label: "02" },
-    { name: "About", href: "#about", label: "03" },
+    { name: "About", href: "/#about", label: "03" },
 ];
 
-export function Navbar({ themeColor = "#FDC435" }: { themeColor?: string }) {
+export function Navbar({ themeColor = "#FDC435", navLinks = [], menuBackgroundText = "PRANTO" }: { themeColor?: string, navLinks?: any[], menuBackgroundText?: string }) {
+    const navItems = navLinks && navLinks.length > 0 ? navLinks : defaultNavItems;
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -43,12 +44,12 @@ export function Navbar({ themeColor = "#FDC435" }: { themeColor?: string }) {
                         onClick={() => setIsOpen(false)}
                     >
                         <span className={cn("transition-colors duration-500", isOpen ? "text-black" : "text-black")}>
-                            <span style={{ color: themeColor }}>M</span>H
+                            <span style={{ color: isOpen ? 'black' : themeColor }}>M</span>H
                         </span>
                         <motion.span
                             animate={{ scale: [1, 1.2, 1] }}
                             transition={{ duration: 2, repeat: Infinity }}
-                            style={{ backgroundColor: themeColor }}
+                            style={{ backgroundColor: isOpen ? 'black' : themeColor }}
                             className="w-1.5 h-1.5 rounded-full"
                         />
                     </Link>
@@ -98,7 +99,7 @@ export function Navbar({ themeColor = "#FDC435" }: { themeColor?: string }) {
                         {/* Background Decorative Text */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
                             <h1 className="text-[20vw] font-black text-black/[0.03] leading-none text-center">
-                                PRANTO
+                                {menuBackgroundText}
                             </h1>
                         </div>
 

@@ -11,6 +11,29 @@
       "role": "Software Test Engineer | Travel Storyteller",
       "description": "Ensuring product quality by profession, capturing moments by passion. As a Software Test Engineer, my life is defined by the pursuit of perfection. I thrive in the details, finding the edge cases that others miss and ensuring that every digital experience is as seamless as it is robust."
     },
+    "navigation": {
+      "menuBackgroundText": "PRANTO",
+      "links": [
+        {
+          "label": "Photography",
+          "name": "Photography",
+          "href": "photography",
+          "showInFooter": true
+        },
+        {
+          "label": "Blog",
+          "name": "Blog",
+          "href": "blog",
+          "showInFooter": true
+        },
+        {
+          "label": "Home",
+          "name": "Home",
+          "href": "/",
+          "showInFooter": false
+        }
+      ]
+    },
     "socials": {
       "links": [
         {
@@ -75,6 +98,8 @@
       "headingNormal": "STILL",
       "headingAccent": "MOMENTS.",
       "description": "Capturing the world through my lens. From urban streets to serene nature, every photo tells a unique story.",
+      "autoSlider": false,
+      "sliderInterval": 6000,
       "accentColor": "#FDC435"
     },
     "blog": {

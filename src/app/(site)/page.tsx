@@ -90,31 +90,14 @@ export default async function Home() {
           <PhotographyGallery
             photos={photos}
             accentColor={themeColor}
+            variant="stacked"
             showLoadMore={false}
             categories={categoriesList}
             initialFilter="All"
+            autoPlay={(settings as any)?.photography?.autoSlider}
+            interval={(settings as any)?.photography?.sliderInterval}
           />
 
-          {/* See All Moments Button */}
-          <div className="flex justify-center mt-16 relative z-10">
-            <Link
-              href="/photography"
-              className="group relative flex items-center gap-6 px-12 py-6 bg-white/80 backdrop-blur-md border border-black/5 rounded-full transition-all duration-700 shadow-sm hover:shadow-2xl overflow-hidden"
-              style={{ '--hover-bg': `${themeColor}1a`, '--accent-shadow': `${themeColor}1a` } as any}
-            >
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-[var(--hover-bg)] to-transparent"
-                style={{ backgroundImage: `linear-gradient(to right, transparent, ${themeColor}1a, transparent)` }}
-              />
-              <div style={{ backgroundColor: themeColor }} className="absolute left-0 top-0 w-1.5 h-full transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-              <span className="text-sm font-black uppercase tracking-[0.4em] text-black group-hover:translate-x-2 transition-transform duration-500 relative z-10">
-                See All Moments
-              </span>
-              <div style={{ backgroundColor: themeColor }} className="p-3 rounded-full group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-md relative z-10">
-                <ArrowRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform" />
-              </div>
-            </Link>
-          </div>
         </div>
       </section>
 

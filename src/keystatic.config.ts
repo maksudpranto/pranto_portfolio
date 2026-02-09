@@ -13,6 +13,8 @@ export default config({
             schema: {
                 title: fields.text({ label: 'Title' }),
                 date: fields.date({ label: 'Published Date' }),
+                location: fields.text({ label: 'Location' }),
+                category: fields.text({ label: 'Category' }),
                 excerpt: fields.text({ label: 'Excerpt', multiline: true }),
                 image: fields.image({
                     label: 'Featured Image',
@@ -108,6 +110,38 @@ export default config({
         }),
     },
     singletons: {
+        photographyPage: singleton({
+            label: 'Photography Page',
+            path: 'src/content/photographyPage',
+            format: { data: 'json' },
+            schema: {
+                label: fields.text({ label: 'Label', defaultValue: 'Visual Journal' }),
+                headingNormal: fields.text({ label: 'Heading (Normal)', defaultValue: 'STILL' }),
+                headingAccent: fields.text({ label: 'Heading (Accent)', defaultValue: 'MOMENTS.' }),
+                description: fields.text({ label: 'Description', multiline: true, defaultValue: 'Capturing the world through my lens. Every photo tells a unique story.' }),
+                headerImage: fields.image({
+                    label: 'Header Background Image (Optional)',
+                    directory: 'public/images/headers',
+                    publicPath: '/images/headers',
+                }),
+            },
+        }),
+        blogPage: singleton({
+            label: 'Blog Page',
+            path: 'src/content/blogPage',
+            format: { data: 'json' },
+            schema: {
+                label: fields.text({ label: 'Label', defaultValue: 'The Written Word' }),
+                headingNormal: fields.text({ label: 'Heading (Normal)', defaultValue: 'STORIES &' }),
+                headingAccent: fields.text({ label: 'Heading (Accent)', defaultValue: 'REFLECTIONS.' }),
+                description: fields.text({ label: 'Description', multiline: true, defaultValue: 'Exploring the intersection of software quality, global travel, and the lessons learned in between.' }),
+                headerImage: fields.image({
+                    label: 'Header Background Image (Optional)',
+                    directory: 'public/images/headers',
+                    publicPath: '/images/headers',
+                }),
+            },
+        }),
         profile: singleton({
             label: 'Profile Page',
             path: 'src/content/profile',
@@ -152,6 +186,22 @@ export default config({
                         role: fields.text({ label: 'Designation (Role)' }),
                         description: fields.text({ label: 'Description', multiline: true }),
                     }, { label: 'Basic Information Section' }),
+                    navigation: fields.object({
+                        menuBackgroundText: fields.text({ label: 'Menu Background Text', defaultValue: 'PRANTO' }),
+                        links: fields.array(
+                            fields.object({
+                                label: fields.text({ label: 'Label (e.g., 01)' }),
+                                name: fields.text({ label: 'Display Name (e.g., Photography)' }),
+                                href: fields.text({ label: 'URL (e.g., /#photography)' }),
+                                showInFooter: fields.checkbox({ label: 'Show in Footer', defaultValue: true }),
+                                footerIcon: fields.text({ label: 'Footer Icon (Lucide Name e.g. Camera)', description: 'Optional. Used if shown in footer.' }),
+                            }),
+                            {
+                                label: 'Navigation Links',
+                                itemLabel: (props) => props.fields.name.value,
+                            }
+                        ),
+                    }, { label: 'Navigation Menu' }),
                     socials: fields.object({
                         links: fields.array(
                             fields.object({
@@ -211,6 +261,8 @@ export default config({
                         headingNormal: fields.text({ label: 'Heading (Normal)', defaultValue: 'STILL' }),
                         headingAccent: fields.text({ label: 'Heading (Accent)', defaultValue: 'MOMENTS.' }),
                         description: fields.text({ label: 'Description', multiline: true, defaultValue: 'Capturing the world through my lens. From urban streets to serene nature, every photo tells a unique story.' }),
+                        autoSlider: fields.checkbox({ label: 'Enable Auto-Slider', defaultValue: true }),
+                        sliderInterval: fields.integer({ label: 'Slider Interval (ms)', defaultValue: 5000 }),
                         accentColor: fields.text({ label: 'Photography Accent Color', defaultValue: '#FDC435' }),
                     }, { label: 'Photography Section' }),
                     blog: fields.object({
@@ -225,6 +277,7 @@ export default config({
                         titleAccent: fields.text({ label: 'Title (Accent)', defaultValue: "TOGETHER." }),
                         description: fields.text({ label: 'Description', multiline: true, defaultValue: "Want to chat? I'm always open to discussing new opportunities and creative ideas." }),
                         buttonText: fields.text({ label: 'Button Text', defaultValue: "Let's Talk" }),
+                        buttonLink: fields.text({ label: 'Button Link (URL or mailto:)', defaultValue: "mailto:maksudpranto@gmail.com" }),
                         email: fields.text({ label: 'Email Address', defaultValue: "maksudpranto@gmail.com" }),
                         accentColor: fields.text({ label: 'Footer Accent Color', defaultValue: '#FDC435' }),
                     }, { label: 'Footer Section' }),
