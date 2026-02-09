@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { Code, Sparkles, ArrowRight, Github, Twitter, Linkedin, Facebook, Instagram, Mail, Camera, MapPin, SearchCheck, Briefcase, Settings2, Database, GraduationCap } from "lucide-react";
-import { PhotographyGallery } from "@/components/photography-gallery";
+import { HomePhotographySection } from "@/components/home-photography-section";
 import { TravelStories } from "@/components/travel-stories";
 import { reader } from "@/lib/keystatic";
 import { HomeClient } from "@/components/home-client";
@@ -43,7 +43,10 @@ export default async function Home() {
     .filter(entry => (entry.entry as any).showOnHomepage) // Only show photos marked for homepage
     .map(entry => ({
       ...entry.entry,
-      id: entry.slug
+      id: entry.slug,
+      image: (entry.entry.image as string)?.startsWith('/') || (entry.entry.image as string)?.startsWith('http')
+        ? entry.entry.image
+        : `/images/photography/${entry.entry.image}`
     }));
 
   const stories = blogEntries.map(entry => {
@@ -69,37 +72,12 @@ export default async function Home() {
       <div className="h-px w-full bg-gradient-to-r from-transparent via-black/5 to-transparent" />
 
       {/* Photography Section */}
-      <section id="photography" className="py-24 sm:py-32 relative">
-        {/* Dynamic Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" style={{ backgroundImage: `linear-gradient(to bottom, #ffffff, ${themeColor}0d, #ffffff)` }} />
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="flex flex-col mb-16 gap-4 relative z-10">
-            <span style={{ color: themeColor }} className="font-black text-xs tracking-[0.4em] uppercase">
-              {settings?.photography?.label || 'Visual Journal'}
-            </span>
-            <h2 className="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter text-black leading-none uppercase">
-              {settings?.photography?.headingNormal || 'STILL'} <br />
-              <span style={{ color: themeColor }}>
-                {settings?.photography?.headingAccent || 'MOMENTS.'}
-              </span>
-            </h2>
-            <p className="max-w-[600px] text-slate-500 text-lg font-medium leading-relaxed mt-4">
-              {settings?.photography?.description}
-            </p>
-          </div>
-          <PhotographyGallery
-            photos={photos}
-            accentColor={themeColor}
-            variant="stacked"
-            showLoadMore={false}
-            categories={categoriesList}
-            initialFilter="All"
-            autoPlay={(settings as any)?.photography?.autoSlider}
-            interval={(settings as any)?.photography?.sliderInterval}
-          />
-
-        </div>
-      </section>
+      <HomePhotographySection
+        settings={settings}
+        themeColor={themeColor}
+        photos={photos}
+        categoriesList={categoriesList}
+      />
 
       {/* Section Separator */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-black/5 to-transparent" />

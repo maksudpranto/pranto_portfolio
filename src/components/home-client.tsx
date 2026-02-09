@@ -161,64 +161,117 @@ export function HomeClient({ profile, experiences, education, settings, themeCol
             {/* Section Separator */}
             <div className="h-px w-full bg-gradient-to-r from-transparent via-black/5 to-transparent" />
 
-            {/* About Me Narrative Section */}
-            <section id="about" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
-                {/* Dynamic Background Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" style={{ backgroundImage: `linear-gradient(to bottom, #ffffff, ${themeColor}0d, #ffffff)` }} />
-                <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
-                        {/* Image Collage Side */}
-                        <div className="lg:col-span-5 relative order-2 lg:order-1">
-                            <div className="relative aspect-[4/5] w-full rounded-[3rem] overflow-hidden border border-black/5 shadow-2xl rotate-2">
-                                <Image
-                                    src={settings?.about?.image || "/pranto.jpg"}
-                                    alt="Exploring the world"
-                                    fill
-                                    className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                                />
-                            </div>
+            {/* About Me Narrative Section - Immersive Redesign */}
+            <section id="about" className="relative overflow-hidden bg-white border-y border-black/5">
+                {/* Background Decorative Elements */}
+                <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+                    <div
+                        className="absolute top-1/2 left-1/4 -translate-y-1/2 text-[15rem] sm:text-[25rem] font-black text-black/[0.02] tracking-tighter leading-none whitespace-nowrap"
+                    >
+                        NARRATIVE
+                    </div>
+                </div>
+
+                <div className="max-w-[1440px] mx-auto px-6 sm:px-12">
+                    <div className="flex flex-col lg:flex-row items-stretch py-24 sm:py-32 lg:py-40 gap-16 lg:gap-32">
+                        {/* Image Side - Aligned with Content Height */}
+                        <div className="w-full lg:w-[45%] relative min-h-[400px] sm:min-h-[500px] lg:min-h-0 order-2 lg:order-1">
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.8, x: 20 }}
-                                whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                                initial={{ opacity: 0, scale: 0.98 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                className="absolute -bottom-10 -right-6 w-1/2 aspect-square rounded-3xl overflow-hidden border-8 border-white shadow-2xl skew-y-3 z-20"
+                                transition={{ duration: 1 }}
+                                className="relative lg:absolute lg:inset-0 h-[400px] sm:h-[500px] lg:h-auto overflow-hidden rounded-2xl border border-black/5 bg-slate-100 shadow-2xl"
                             >
                                 <Image
                                     src={settings?.about?.image || "/pranto.jpg"}
-                                    alt="Macro details"
+                                    alt="About portrait"
                                     fill
                                     className="object-cover"
+                                    priority
                                 />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-30" />
                             </motion.div>
-                            <div style={{ backgroundColor: `${aboutAccent}33` }} className="absolute top-1/2 -left-12 -translate-y-1/2 w-48 h-48 rounded-full blur-[80px] -z-10" />
                         </div>
 
-                        {/* Narrative Content Side */}
-                        <div className="lg:col-span-7 flex flex-col gap-8 order-1 lg:order-2">
-                            <div className="flex flex-col gap-4 relative z-10">
-                                <span style={{ color: aboutAccent }} className="font-black text-xs tracking-[0.4em] uppercase">{settings?.about?.label || 'My Narrative'}</span>
-                                <h2 className="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter leading-none text-black uppercase">
+                        {/* Content Section - Leading and Stats */}
+                        <div className="w-full lg:w-[55%] flex flex-col justify-center gap-10 order-1 lg:order-2 lg:pl-16 relative z-10">
+                            <div className="flex flex-col gap-6">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    className="flex items-center gap-4"
+                                >
+                                    <div style={{ backgroundColor: aboutAccent }} className="w-12 h-[1px]" />
+                                    <span style={{ color: aboutAccent }} className="font-black text-xs tracking-[0.4em] uppercase font-heading">
+                                        {settings?.about?.label || 'The Narrative'}
+                                    </span>
+                                </motion.div>
+
+                                <motion.h2
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.1 }}
+                                    className="text-4xl sm:text-6xl xl:text-7xl font-black tracking-tight leading-[0.95] text-black uppercase font-heading"
+                                >
                                     {settings?.about?.headingNormal?.split(' ').slice(0, -1).join(' ') || 'THE INTERSECTION'} <br />
-                                    {settings?.about?.headingNormal?.split(' ').slice(-1) || 'OF PRECISION &'} <br />
-                                    <span style={{ color: aboutAccent }} className="italic font-black">{settings?.about?.headingItalic || 'EXPLORATION.'}</span>
-                                </h2>
+                                    <span className="flex items-center gap-4">
+                                        {settings?.about?.headingNormal?.split(' ').slice(-1) || 'OF'}
+                                        <span style={{ color: aboutAccent }} className="text-stroke-sm text-transparent drop-shadow-sm">
+                                            PRECISION
+                                        </span>
+                                    </span>
+                                    <span style={{ color: aboutAccent }} className="italic font-light opacity-90 block mt-2">
+                                        {settings?.about?.headingItalic || '& EXPLORATION.'}
+                                    </span>
+                                </motion.h2>
                             </div>
 
-                            <div className="flex flex-col gap-6 text-slate-600 text-lg sm:text-xl font-medium leading-relaxed">
-                                <p>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.2 }}
+                                className="flex flex-col gap-6 text-slate-500 text-lg font-medium leading-relaxed max-w-[600px]"
+                            >
+                                <p className="first-letter:text-5xl first-letter:font-black first-letter:mr-3 first-letter:float-left" style={{ '--first-letter-color': aboutAccent } as any}>
                                     {description}
                                 </p>
-                            </div>
+                            </motion.div>
 
-                            <div className="grid grid-cols-2 gap-8 pt-8 border-t border-black/5">
-                                <div>
-                                    <div className="text-4xl font-black text-black">{settings?.about?.stat1Value || '5+'}</div>
-                                    <div className="text-sm font-bold text-slate-400 uppercase tracking-widest mt-1">{settings?.about?.stat1Label || 'Years Testing'}</div>
-                                </div>
-                                <div>
-                                    <div className="text-4xl font-black text-black">{settings?.about?.stat2Value || '200k+'}</div>
-                                    <div className="text-sm font-bold text-slate-400 uppercase tracking-widest mt-1">{settings?.about?.stat2Label || 'Moments Captured'}</div>
-                                </div>
+                            {/* Stats Grid - Glassmorphic Cards */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-10">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.3 }}
+                                    className="p-8 rounded-2xl bg-neutral-50 border border-black/5 group hover:bg-white hover:shadow-2xl transition-all duration-500 relative overflow-hidden"
+                                >
+                                    <div style={{ color: `${aboutAccent}10` }} className="absolute top-4 right-6 text-6xl font-black uppercase tracking-tighter">01</div>
+                                    <div className="relative z-10">
+                                        <div className="text-5xl font-black text-black tracking-tighter mb-2 group-hover:translate-x-1 transition-transform">{settings?.about?.stat1Value || '5+'}</div>
+                                        <div className="h-px w-8 bg-black/10 mb-3 group-hover:w-full transition-all duration-700" />
+                                        <div className="text-xs font-black text-slate-400 uppercase tracking-widest">{settings?.about?.stat1Label || 'Years Testing'}</div>
+                                    </div>
+                                </motion.div>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.4 }}
+                                    className="p-8 rounded-2xl bg-neutral-50 border border-black/5 group hover:bg-white hover:shadow-2xl transition-all duration-500 relative overflow-hidden"
+                                >
+                                    <div style={{ color: `${aboutAccent}10` }} className="absolute top-4 right-6 text-6xl font-black uppercase tracking-tighter">02</div>
+                                    <div className="relative z-10">
+                                        <div className="text-5xl font-black text-black tracking-tighter mb-2 group-hover:translate-x-1 transition-transform">{settings?.about?.stat2Value || '200k+'}</div>
+                                        <div className="h-px w-8 bg-black/10 mb-3 group-hover:w-full transition-all duration-700" />
+                                        <div className="text-xs font-black text-slate-400 uppercase tracking-widest">{settings?.about?.stat2Label || 'Moments Captured'}</div>
+                                    </div>
+                                </motion.div>
                             </div>
                         </div>
                     </div>
@@ -335,9 +388,12 @@ export function HomeClient({ profile, experiences, education, settings, themeCol
 
                                     <div className="flex flex-col lg:items-end gap-2 shrink-0">
                                         <div className="flex items-center gap-2">
-                                            <span style={{ color: eduAccent }} className="text-[10px] font-black tracking-[0.2em] uppercase px-4 py-2 bg-black text-white rounded-full">
-                                                {edu.period}
-                                            </span>
+                                            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-black/5 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                                <span style={{ backgroundColor: eduAccent }} className="w-1.5 h-1.5 rounded-full" />
+                                                <span className="text-xs font-bold text-slate-600 tracking-widest uppercase">
+                                                    {edu.period}
+                                                </span>
+                                            </div>
                                         </div>
                                         <div style={{ backgroundColor: eduAccent }} className="h-0.5 w-12 opacity-10 group-hover:w-full transition-all duration-700" />
                                     </div>

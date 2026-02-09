@@ -40,11 +40,13 @@ export default config({
         }),
         photos: collection({
             label: 'Photos',
-            slugField: 'title',
+            slugField: 'slug',
             path: 'src/content/photos/*',
             format: { data: 'json' },
+            columns: ['title', 'slug', 'category'],
             schema: {
-                title: fields.text({ label: 'Title' }),
+                title: fields.text({ label: 'Title', validation: { length: { min: 1 } } }),
+                slug: fields.text({ label: 'Slug / ID', description: 'Unique identifier for the URL', validation: { length: { min: 1 } } }),
                 location: fields.text({ label: 'Location' }),
                 date: fields.text({ label: 'Date' }),
                 category: fields.relationship({

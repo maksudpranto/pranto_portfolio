@@ -15,7 +15,8 @@ export function PhotographyGallery({
     categories = [],
     initialFilter = "All",
     autoPlay = false,
-    interval = 5000
+    interval = 5000,
+    onIndexChange
 }: {
     photos: any[],
     accentColor?: string,
@@ -24,7 +25,8 @@ export function PhotographyGallery({
     categories?: { id: string, name: string }[],
     initialFilter?: string,
     autoPlay?: boolean,
-    interval?: number
+    interval?: number,
+    onIndexChange?: (index: number) => void
 }) {
     const [filter, setFilter] = useState(initialFilter);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -37,6 +39,13 @@ export function PhotographyGallery({
         setCurrentIndex(0);
         setVisibleCount(variant === "stacked" ? 100 : variant === "futuristic" ? 9 : variant === "slick" ? 8 : 4);
     };
+
+    // Notify parent of index change
+    useEffect(() => {
+        if (onIndexChange) {
+            onIndexChange(currentIndex);
+        }
+    }, [currentIndex, onIndexChange]);
 
     const displayCategories = categories && categories.length > 0 ? [{ id: "All", name: "All" }, ...categories] : [
         { id: "All", name: "All" },
@@ -178,7 +187,7 @@ export function PhotographyGallery({
                                                         <MapPin className="w-3 h-3 text-white drop-shadow-sm" />
                                                         <span className="text-[10px] font-bold uppercase tracking-widest text-white drop-shadow-sm">{photo.location}</span>
                                                     </div>
-                                                    <h3 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tighter italic leading-none">{photo.title}</h3>
+                                                    <h3 className="text-3xl sm:text-5xl font-black font-heading text-white uppercase tracking-wide leading-none">{photo.title}</h3>
                                                 </div>
                                             </div>
                                         )}
@@ -241,7 +250,7 @@ export function PhotographyGallery({
                                                     </div>
 
                                                     <div className="flex flex-col gap-1">
-                                                        <h3 className="text-3xl lg:text-4xl font-black text-white tracking-tighter uppercase leading-none italic group-hover:translate-x-2 transition-transform duration-500">
+                                                        <h3 className="text-3xl lg:text-4xl font-black font-heading text-white tracking-wide uppercase leading-none group-hover:translate-x-2 transition-transform duration-500">
                                                             {photo.title}
                                                         </h3>
                                                         <p style={{ color: accentColor }} className="text-[10px] font-black uppercase tracking-[0.5em] mt-2 brightness-125 saturate-150 opacity-100 group-hover:opacity-100 transition-opacity duration-500">

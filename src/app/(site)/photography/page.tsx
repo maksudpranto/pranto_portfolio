@@ -18,10 +18,16 @@ export default async function PhotographyPage() {
     const categoriesList = photoCategories
         .map(c => ({ id: c.slug, name: c.entry.name || c.slug }));
 
-    const photos = photographyEntries.map(entry => ({
-        ...entry.entry,
-        id: entry.slug
-    }));
+    const photos = photographyEntries.map(entry => {
+        return {
+            ...entry.entry,
+            title: entry.entry.title || entry.slug,
+            id: entry.slug,
+            image: entry.entry.image?.startsWith('/') || entry.entry.image?.startsWith('http')
+                ? entry.entry.image
+                : `/images/photography/${entry.entry.image}`
+        };
+    });
 
     return (
         <div className="flex flex-col bg-white min-h-screen">
