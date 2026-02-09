@@ -9,6 +9,10 @@ export default async function PhotographyPage() {
     const accentColor = themeColor;
 
     const photographyEntries = await reader.collections.photos.all();
+    const photoCategories = await reader.collections.categories.all();
+    const categoriesList = photoCategories
+        .map(c => ({ id: c.slug, name: c.entry.name || c.slug }));
+
     const photos = photographyEntries.map(entry => ({
         ...entry.entry,
         id: entry.slug
@@ -39,7 +43,12 @@ export default async function PhotographyPage() {
             {/* Gallery Section */}
             <section className="py-12 sm:py-24 bg-white">
                 <div className="max-w-[1400px] mx-auto px-6 sm:px-12">
-                    <PhotographyGallery photos={photos} accentColor={accentColor} variant="slick" />
+                    <PhotographyGallery
+                        photos={photos}
+                        accentColor={accentColor}
+                        variant="slick"
+                        categories={categoriesList}
+                    />
                 </div>
             </section>
         </div>

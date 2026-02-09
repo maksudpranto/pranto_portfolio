@@ -122,7 +122,7 @@ export function HomeClient({ profile, experiences, education, settings, themeCol
                                 <div className="relative w-full aspect-[4/5] sm:h-[550px] overflow-hidden rounded-[3rem] sm:rounded-[4rem] border border-black/5 bg-slate-50 shadow-2xl group-hover:scale-[1.02] transition-transform duration-700 z-10">
                                     <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent z-10 opacity-60" />
                                     <Image
-                                        src="/pranto.jpg"
+                                        src={settings?.hero?.image || "/pranto.jpg"}
                                         alt={name}
                                         fill
                                         className="object-cover object-top scale-110"
@@ -171,7 +171,7 @@ export function HomeClient({ profile, experiences, education, settings, themeCol
                         <div className="lg:col-span-5 relative order-2 lg:order-1">
                             <div className="relative aspect-[4/5] w-full rounded-[3rem] overflow-hidden border border-black/5 shadow-2xl rotate-2">
                                 <Image
-                                    src="/pranto.jpg"
+                                    src={settings?.about?.image || "/pranto.jpg"}
                                     alt="Exploring the world"
                                     fill
                                     className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
@@ -184,7 +184,7 @@ export function HomeClient({ profile, experiences, education, settings, themeCol
                                 className="absolute -bottom-10 -right-6 w-1/2 aspect-square rounded-3xl overflow-hidden border-8 border-white shadow-2xl skew-y-3 z-20"
                             >
                                 <Image
-                                    src="/pranto.jpg"
+                                    src={settings?.about?.image || "/pranto.jpg"}
                                     alt="Macro details"
                                     fill
                                     className="object-cover"

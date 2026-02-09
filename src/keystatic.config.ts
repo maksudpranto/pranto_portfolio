@@ -45,11 +45,19 @@ export default config({
                 title: fields.text({ label: 'Title' }),
                 location: fields.text({ label: 'Location' }),
                 date: fields.text({ label: 'Date' }),
-                category: fields.text({ label: 'Category' }),
+                category: fields.relationship({
+                    label: 'Category',
+                    collection: 'categories',
+                    validation: { isRequired: true }
+                }),
                 image: fields.image({
                     label: 'Image',
                     directory: 'public/images/photography',
                     publicPath: '/images/photography',
+                }),
+                showOnHomepage: fields.checkbox({
+                    label: 'Show on Homepage',
+                    defaultValue: false,
                 }),
                 aspect: fields.select({
                     label: 'Aspect Ratio',
@@ -61,6 +69,15 @@ export default config({
                     ],
                     defaultValue: 'aspect-video',
                 }),
+            },
+        }),
+        categories: collection({
+            label: 'Gallery Categories',
+            slugField: 'name',
+            path: 'src/content/categories/*',
+            format: { data: 'json' },
+            schema: {
+                name: fields.text({ label: 'Category Name' }),
             },
         }),
         experience: collection({
@@ -155,12 +172,22 @@ export default config({
                         titleFirst: fields.text({ label: 'Title (First Part)', defaultValue: 'MAKSUD' }),
                         titleSecond: fields.text({ label: 'Title (Second Part - Accent)', defaultValue: 'HOSSAIN' }),
                         description: fields.text({ label: 'Short Description', multiline: true }),
+                        image: fields.image({
+                            label: 'Hero Image',
+                            directory: 'public/images/hero',
+                            publicPath: '/images/hero',
+                        }),
                         accentColor: fields.text({ label: 'Hero Accent Color', defaultValue: '#FDC435' }),
                     }, { label: 'Hero Section' }),
                     about: fields.object({
                         label: fields.text({ label: 'Section Label', defaultValue: 'My Narrative' }),
                         headingNormal: fields.text({ label: 'Heading (Normal)', defaultValue: 'THE INTERSECTION OF PRECISION &' }),
                         headingItalic: fields.text({ label: 'Heading (Italic)', defaultValue: 'EXPLORATION.' }),
+                        image: fields.image({
+                            label: 'Main About Image',
+                            directory: 'public/images/about',
+                            publicPath: '/images/about',
+                        }),
                         stat1Value: fields.text({ label: 'Stat 1 Value', defaultValue: '5+' }),
                         stat1Label: fields.text({ label: 'Stat 1 Label', defaultValue: 'Years Testing' }),
                         stat2Value: fields.text({ label: 'Stat 2 Value', defaultValue: '200k+' }),

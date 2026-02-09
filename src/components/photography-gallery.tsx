@@ -11,16 +11,28 @@ export function PhotographyGallery({
     photos,
     accentColor = "#FDC435",
     variant = "default",
-    showLoadMore = true
+    showLoadMore = true,
+    categories = [],
+    initialFilter = "All"
 }: {
     photos: any[],
     accentColor?: string,
     variant?: "default" | "slick",
-    showLoadMore?: boolean
+    showLoadMore?: boolean,
+    categories?: { id: string, name: string }[],
+    initialFilter?: string
 }) {
-    const [filter, setFilter] = useState("All");
+    const [filter, setFilter] = useState(initialFilter);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [visibleCount, setVisibleCount] = useState(variant === "slick" ? 8 : 4);
+
+    const displayCategories = categories && categories.length > 0 ? [{ id: "All", name: "All" }, ...categories] : [
+        { id: "All", name: "All" },
+        { id: "Nature", name: "Nature" },
+        { id: "Urban", name: "Urban" },
+        { id: "Moments", name: "Moments" },
+        { id: "Flower", name: "Flower" }
+    ];
 
     const filteredPhotos = filter === "All" ? photos : photos.filter(p => p.category === filter);
     const visiblePhotos = filteredPhotos.slice(0, visibleCount);
@@ -43,20 +55,20 @@ export function PhotographyGallery({
         <div className="flex flex-col gap-16">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
                 <div className="flex flex-wrap gap-4">
-                    {["All", "Nature", "Urban", "Moments", "Flower"].map((cat) => (
+                    {displayCategories.map((cat) => (
                         <button
-                            key={cat}
+                            key={cat.id}
                             onClick={() => {
-                                setFilter(cat);
+                                setFilter(cat.id);
                                 setVisibleCount(variant === "slick" ? 8 : 4);
                             }}
-                            style={filter === cat ? { backgroundColor: accentColor, borderColor: accentColor } : {}}
-                            className={`px-6 py-2 rounded-full border text-xs font-bold uppercase tracking-widest transition-all ${filter === cat
-                                ? "text-white shadow-lg shadow-[#0000001a]"
-                                : "bg-transparent text-slate-400 border-black/5 hover:border-[#FDC435] hover:text-black"
+                            style={filter === cat.id ? { backgroundColor: 'black', borderColor: 'black' } : { '--hover-border': accentColor } as any}
+                            className={`px-6 py-2 rounded-full border text-xs font-black uppercase tracking-widest transition-all ${filter === cat.id
+                                ? "text-white shadow-2xl shadow-black/30 scale-105"
+                                : "bg-white/50 text-black/60 border-black/10 hover:border-[var(--hover-border)] hover:text-black hover:bg-white"
                                 }`}
                         >
-                            {cat}
+                            {cat.name}
                         </button>
                     ))}
                 </div>

@@ -20,6 +20,10 @@ export default async function Home() {
   const educationEntries = await reader.collections.education.all();
   const photographyEntries = await reader.collections.photos.all();
   const blogEntries = await reader.collections.blog.all();
+  const photoCategories = await reader.collections.categories.all();
+
+  const categoriesList = photoCategories
+    .map(c => ({ id: c.slug, name: c.entry.name || c.slug }));
 
   const experiences = experienceEntries
     .map(entry => ({
@@ -35,10 +39,12 @@ export default async function Home() {
     }))
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
-  const photos = photographyEntries.map(entry => ({
-    ...entry.entry,
-    id: entry.slug
-  }));
+  const photos = photographyEntries
+    .filter(entry => (entry.entry as any).showOnHomepage) // Only show photos marked for homepage
+    .map(entry => ({
+      ...entry.entry,
+      id: entry.slug
+    }));
 
   const stories = blogEntries.map(entry => {
     const { content, ...data } = entry.entry;
@@ -85,6 +91,8 @@ export default async function Home() {
             photos={photos}
             accentColor={themeColor}
             showLoadMore={false}
+            categories={categoriesList}
+            initialFilter="All"
           />
 
           {/* See All Moments Button */}
