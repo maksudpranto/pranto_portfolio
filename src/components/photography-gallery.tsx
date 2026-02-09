@@ -6,14 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import { PHOTOS } from "@/lib/constants";
 
-export function PhotographyGallery() {
+export function PhotographyGallery({ photos, accentColor = "#FDC435" }: { photos: any[], accentColor?: string }) {
     const [filter, setFilter] = useState("All");
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [visibleCount, setVisibleCount] = useState(4);
-
-    const photos = PHOTOS;
 
     const filteredPhotos = filter === "All" ? photos : photos.filter(p => p.category === filter);
     const visiblePhotos = filteredPhotos.slice(0, visibleCount);
@@ -43,8 +40,9 @@ export function PhotographyGallery() {
                                 setFilter(cat);
                                 setVisibleCount(4);
                             }}
+                            style={filter === cat ? { backgroundColor: accentColor, borderColor: accentColor } : {}}
                             className={`px-6 py-2 rounded-full border text-xs font-bold uppercase tracking-widest transition-all ${filter === cat
-                                ? "bg-[#FDC435] text-white border-[#FDC435] shadow-lg shadow-[#FDC435]/20"
+                                ? "text-white shadow-lg shadow-[#0000001a]"
                                 : "bg-transparent text-slate-400 border-black/5 hover:border-[#FDC435] hover:text-black"
                                 }`}
                         >
@@ -78,19 +76,19 @@ export function PhotographyGallery() {
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 <div className="absolute top-6 left-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 flex items-center gap-2">
-                                    <MapPin className="w-3 h-3 text-[#FDC435]" />
+                                    <MapPin style={{ color: accentColor }} className="w-3 h-3" />
                                     <span className="text-[10px] text-white font-bold uppercase tracking-widest">{photo.location}</span>
                                 </div>
                             </div>
 
                             <div className="flex flex-col gap-4 pl-4">
                                 <div className="flex flex-col gap-1">
-                                    <span className="text-[10px] font-black text-[#FDC435] uppercase tracking-[0.3em]">{photo.date}</span>
-                                    <h3 className="text-3xl sm:text-4xl font-black text-zinc-950 tracking-tight group-hover:text-[#FDC435] transition-colors duration-300">
+                                    <span style={{ color: accentColor }} className="text-[10px] font-black uppercase tracking-[0.3em]">{photo.date}</span>
+                                    <h3 style={{ '--hover-color': accentColor } as any} className="text-3xl sm:text-4xl font-black text-zinc-950 tracking-tight group-hover:text-[var(--hover-color)] transition-colors duration-300">
                                         {photo.title}
                                     </h3>
                                 </div>
-                                <div className="h-[1px] w-12 bg-[#FDC435]/30 group-hover:w-full transition-all duration-500" />
+                                <div style={{ backgroundColor: accentColor }} className="h-[1px] w-12 opacity-30 group-hover:w-full transition-all duration-500" />
                             </div>
                         </motion.div>
                     ))}
@@ -102,7 +100,8 @@ export function PhotographyGallery() {
                     <Button
                         variant="outline"
                         onClick={() => setVisibleCount(prev => prev + 2)}
-                        className="h-16 px-12 rounded-full border-2 border-black/5 hover:border-[#FDC435] hover:bg-[#FDC435] hover:text-black transition-all font-bold text-lg"
+                        style={{ '--hover-bg': accentColor } as any}
+                        className="h-16 px-12 rounded-full border-2 border-black/5 hover:border-[var(--hover-bg)] hover:bg-[var(--hover-bg)] hover:text-black transition-all font-bold text-lg"
                     >
                         Load More Stories
                     </Button>
@@ -159,14 +158,14 @@ export function PhotographyGallery() {
                             </div>
 
                             <div className="text-center flex flex-col gap-3 max-w-[800px]">
-                                <span className="text-[#FDC435] text-sm font-black uppercase tracking-[0.4em] mb-2">
+                                <span style={{ color: accentColor }} className="text-sm font-black uppercase tracking-[0.4em] mb-2">
                                     {filteredPhotos[selectedIndex].date}
                                 </span>
                                 <h3 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-none">
                                     {filteredPhotos[selectedIndex].title.toUpperCase()}
                                 </h3>
                                 <p className="text-white/40 text-xs font-bold uppercase tracking-[0.2em] mt-2">
-                                    <MapPin className="w-3 h-3 inline-block mr-2 text-[#FDC435]" />
+                                    <MapPin style={{ color: accentColor }} className="w-3 h-3 inline-block mr-2" />
                                     {filteredPhotos[selectedIndex].location}
                                 </p>
                             </div>

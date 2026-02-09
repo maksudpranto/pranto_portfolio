@@ -1,0 +1,19 @@
+
+> portfolio-web@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.1.6 (Turbopack)
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 4.2s
+  Running TypeScript ...
+  Collecting page data using 15 workers ...
+  Generating static pages using 15 workers (0/13) ...
+Error occurred prerendering page "/blog/coding-in-kyoto". Read more: https://nextjs.org/docs/messages/prerender-error
+TypeError: a.document.map is not a function
+    at p (D:\SELF_Projects\Portfolio\.next\server\chunks\ssr\_a9c743db._.js:4:9892)
+    at stringify (<anonymous>) {
+  digest: '226695272'
+}
+Export encountered an error on /blog/[slug]/page: /blog/coding-in-kyoto, exiting the build.
+Γ¿» Next.js build worker exited with code: 1 and signal: null

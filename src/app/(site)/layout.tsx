@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { Footer } from "@/components/footer";
+import { reader } from "@/lib/keystatic";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,11 +22,14 @@ export const metadata: Metadata = {
   description: "Welcome to my professional portfolio. I build modern web applications.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const profile = await reader.singletons.profile.read();
+  const footerSettings = (profile as any)?.sections?.footer;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -42,7 +46,7 @@ export default function RootLayout({
             {children}
           </main>
           <Toaster />
-          <Footer />
+          <Footer settings={footerSettings} />
         </ThemeProvider>
       </body>
     </html>

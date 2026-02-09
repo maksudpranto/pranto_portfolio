@@ -6,14 +6,15 @@ import Image from "next/image";
 import { ArrowUpRight, Heart, Coffee, Mail, Home, User, Camera, BookOpen } from "lucide-react";
 import { SOCIAL_LINKS } from "@/lib/constants";
 
-export function Footer() {
+export function Footer({ settings }: { settings?: any }) {
     const currentYear = new Date().getFullYear();
+    const accentColor = settings?.accentColor || "#FDC435";
 
     return (
         <footer className="relative bg-white/90 backdrop-blur-md text-zinc-950 overflow-hidden pt-12 pb-6 border-t border-black/5 shadow-[0_-20px_80px_-20px_rgba(0,0,0,0.1)] z-50">
             {/* Decorative Background Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#FDC435]/10 rounded-full blur-[120px]" />
+                <div style={{ backgroundColor: accentColor }} className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] opacity-10 rounded-full blur-[120px]" />
                 <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-slate-200/50 rounded-full blur-[100px]" />
             </div>
 
@@ -29,8 +30,8 @@ export function Footer() {
                             transition={{ duration: 0.6 }}
                         >
                             <h2 className="text-4xl sm:text-6xl font-black tracking-tight leading-[0.9]">
-                                LET'S CONNECT <br />
-                                <span className="text-[#FDC435]">TOGETHER.</span>
+                                {settings?.titleNormal || "LET'S CONNECT"} <br />
+                                <span style={{ color: accentColor }}>{settings?.titleAccent || "TOGETHER."}</span>
                             </h2>
                         </motion.div>
 
@@ -41,7 +42,7 @@ export function Footer() {
                             transition={{ duration: 0.6, delay: 0.1 }}
                             className="text-slate-600 text-lg max-w-md font-medium leading-relaxed"
                         >
-                            Want to chat? I'm always open to discussing new opportunities and creative ideas.
+                            {settings?.description || "Want to chat? I'm always open to discussing new opportunities and creative ideas."}
                         </motion.p>
 
                         <motion.div
@@ -51,10 +52,11 @@ export function Footer() {
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
                             <a
-                                href="mailto:maksudpranto@gmail.com"
-                                className="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#FDC435] hover:text-black transition-all duration-300 group shadow-xl shadow-black/5"
+                                href={`mailto:${settings?.email || "maksudpranto@gmail.com"}`}
+                                style={{ '--hover-bg': accentColor } as any}
+                                className="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--hover-bg)] hover:text-black transition-all duration-300 group shadow-xl shadow-black/5"
                             >
-                                <span>Let's Talk</span>
+                                <span>{settings?.buttonText || "Let's Talk"}</span>
                                 <Mail className="w-5 h-5 group-hover:-rotate-12 transition-transform duration-300" />
                             </a>
                         </motion.div>
@@ -69,7 +71,7 @@ export function Footer() {
                             transition={{ duration: 0.6, delay: 0.2 }}
                             className="flex flex-col gap-6"
                         >
-                            <h3 className="text-sm font-bold tracking-[0.2em] text-[#FDC435] uppercase">Explore</h3>
+                            <h3 style={{ color: accentColor }} className="text-sm font-bold tracking-[0.2em] uppercase">Explore</h3>
                             <div className="flex flex-col gap-4">
                                 {[
                                     { name: 'Home', href: '/', icon: Home },
@@ -80,9 +82,10 @@ export function Footer() {
                                     <Link
                                         key={item.name}
                                         href={item.href}
-                                        className="text-lg font-bold text-zinc-950 hover:text-[#FDC435] transition-colors w-fit group flex items-center gap-3"
+                                        style={{ '--hover-color': accentColor } as any}
+                                        className="text-lg font-bold text-zinc-950 hover:text-[var(--hover-color)] transition-colors w-fit group flex items-center gap-3"
                                     >
-                                        <item.icon className="w-5 h-5 text-slate-400 group-hover:text-[#FDC435] transition-colors" />
+                                        <item.icon className="w-5 h-5 text-slate-400 group-hover:text-[var(--hover-color)] transition-colors" />
                                         <span>{item.name}</span>
                                     </Link>
                                 ))}
@@ -96,7 +99,7 @@ export function Footer() {
                             transition={{ duration: 0.6, delay: 0.3 }}
                             className="flex flex-col gap-6"
                         >
-                            <h3 className="text-sm font-bold tracking-[0.2em] text-[#FDC435] uppercase">Socials</h3>
+                            <h3 style={{ color: accentColor }} className="text-sm font-bold tracking-[0.2em] uppercase">Socials</h3>
                             <div className="flex flex-col gap-4">
                                 {SOCIAL_LINKS.map((social, i) => {
                                     const Icon: any = social.icon;
@@ -112,7 +115,8 @@ export function Footer() {
                                             className="text-lg font-medium text-slate-500 hover:text-black transition-colors flex items-center gap-3 group"
                                         >
                                             <div
-                                                className="p-2 bg-[#FDC435] rounded-lg group-hover:bg-[var(--hover-color)] transition-colors duration-300 flex items-center justify-center shadow-md shadow-[#FDC435]/20"
+                                                style={{ backgroundColor: accentColor, boxShadow: `0 10px 15px -3px ${accentColor}33` } as any}
+                                                className="p-2 rounded-lg group-hover:bg-[var(--hover-color)] transition-colors duration-300 flex items-center justify-center shadow-md"
                                             >
                                                 {isPath ? (
                                                     <div className="relative w-4 h-4">
