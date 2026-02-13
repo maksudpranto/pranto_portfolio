@@ -69,13 +69,15 @@
     "hero": {
       "titleFirst": "MAKSUD Hossain",
       "titleSecond": "Pranto",
+      "description": "Ensuring product quality by profession, capturing moments by passion.",
       "accentColor": "#FDC435"
     },
     "about": {
-      "label": "My Narrative",
+      "label": "PRANTO",
+      "backgroundText": "PRANTO",
       "headingNormal": "INTERSECTION OF PRECISION &",
       "headingItalic": "EXPLORATION.",
-      "image": "/images/about/sections/about/image.jpg",
+      "image": "/images/about/sections/about/image.jpeg",
       "stat1Value": "5+",
       "stat1Label": "Years Testing",
       "stat2Value": "1000+",
@@ -99,7 +101,7 @@
       "headingNormal": "STILL",
       "headingAccent": "MOMENTS.",
       "description": "Capturing the world through my lens. From urban streets to serene nature, every photo tells a unique story.",
-      "autoSlider": false,
+      "autoSlider": true,
       "sliderInterval": 6000,
       "accentColor": "#FDC435"
     },
@@ -115,6 +117,7 @@
       "titleAccent": "TOGETHER.",
       "description": "Want to chat? I'm always open to discussing new opportunities and creative ideas.",
       "buttonText": "Let's Talk",
+      "buttonLink": "https://wa.me/8801756610535",
       "email": "maksudpranto@gmail.com",
       "accentColor": "#FDC435"
     }

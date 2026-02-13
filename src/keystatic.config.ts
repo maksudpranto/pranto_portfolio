@@ -157,6 +157,20 @@ export default config({
                 }),
             },
         }),
+        siteSettings: singleton({
+            label: 'Site Settings',
+            path: 'src/content/siteSettings',
+            format: { data: 'json' },
+            schema: {
+                title: fields.text({ label: 'Site Title', defaultValue: 'Test Engineer | Travel Storyteller' }),
+                description: fields.text({ label: 'Site Description', multiline: true, defaultValue: 'Welcome to my professional portfolio. I build modern web applications.' }),
+                favicon: fields.image({
+                    label: 'Favicon / Logo',
+                    directory: 'public',
+                    publicPath: '/',
+                }),
+            },
+        }),
         profile: singleton({
             label: 'Profile Page',
             path: 'src/content/profile',
@@ -246,6 +260,7 @@ export default config({
                     }, { label: 'Hero Section' }),
                     about: fields.object({
                         label: fields.text({ label: 'Section Label', defaultValue: 'My Narrative' }),
+                        backgroundText: fields.text({ label: 'Background Decorative Text', defaultValue: 'NARRATIVE' }),
                         headingNormal: fields.text({ label: 'Heading (Normal)', defaultValue: 'THE INTERSECTION OF PRECISION &' }),
                         headingItalic: fields.text({ label: 'Heading (Italic)', defaultValue: 'EXPLORATION.' }),
                         image: fields.image({

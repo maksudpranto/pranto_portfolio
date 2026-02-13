@@ -172,7 +172,7 @@ export function HomeClient({ profile, experiences, education, settings, themeCol
                     <div
                         className="absolute top-1/2 left-1/4 -translate-y-1/2 text-[10rem] sm:text-[25rem] font-black text-black/[0.01] sm:text-black/[0.02] tracking-tighter leading-none whitespace-nowrap"
                     >
-                        NARRATIVE
+                        {settings?.about?.backgroundText || 'NARRATIVE'}
                     </div>
                 </div>
 

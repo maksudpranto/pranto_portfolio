@@ -17,10 +17,17 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Test Engineer | Travel Storyteller",
-  description: "Welcome to my professional portfolio. I build modern web applications.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await reader.singletons.siteSettings.read();
+
+  return {
+    title: siteSettings?.title || "Test Engineer | Travel Storyteller",
+    description: siteSettings?.description || "Welcome to my professional portfolio. I build modern web applications.",
+    icons: {
+      icon: siteSettings?.favicon || "/favicon.ico",
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
