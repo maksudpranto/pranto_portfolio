@@ -6,6 +6,8 @@ import { reader } from "@/lib/keystatic";
 import Markdoc from "@markdoc/markdoc";
 import React from "react";
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
     const slugs = await reader.collections.blog.list();
     return slugs.map((slug: string) => ({
@@ -14,7 +16,8 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
+    const { slug: rawSlug } = await params;
+    const slug = decodeURIComponent(rawSlug);
     const post = await reader.collections.blog.read(slug);
 
     if (!post) {

@@ -15,11 +15,16 @@ export default config({
     collections: {
         blog: collection({
             label: 'Blog Posts',
-            slugField: 'title',
+            slugField: 'slug',
             path: 'src/content/blog/*',
             format: { data: 'json' },
             schema: {
                 title: fields.text({ label: 'Title' }),
+                slug: fields.text({
+                    label: 'Slug',
+                    description: 'URL-safe identifier (e.g., my-travel-story)',
+                    validation: { length: { min: 1 }, pattern: { regex: /^[a-z0-9-]+$/, message: 'Slug can only contain lowercase letters, numbers, and hyphens' } }
+                }),
                 date: fields.date({ label: 'Published Date' }),
                 location: fields.text({ label: 'Location' }),
                 category: fields.text({ label: 'Category' }),
