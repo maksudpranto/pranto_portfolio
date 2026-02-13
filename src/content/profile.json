@@ -75,7 +75,7 @@
       "label": "My Narrative",
       "headingNormal": "INTERSECTION OF PRECISION &",
       "headingItalic": "EXPLORATION.",
-      "image": "/images/about/sections/about/image.jpg",
+      "image": "/images/about/sections/about/image.jpeg",
       "stat1Value": "5+",
       "stat1Label": "Years Testing",
       "stat2Value": "1000+",
@@ -99,7 +99,7 @@
       "headingNormal": "STILL",
       "headingAccent": "MOMENTS.",
       "description": "Capturing the world through my lens. From urban streets to serene nature, every photo tells a unique story.",
-      "autoSlider": false,
+      "autoSlider": true,
       "sliderInterval": 6000,
       "accentColor": "#FDC435"
     },
