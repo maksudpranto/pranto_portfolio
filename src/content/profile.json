@@ -1,0 +1,122 @@
+{
+  "appearance": {
+    "themeColor": {
+      "discriminant": "palette",
+      "value": "#FDC435"
+    }
+  },
+  "sections": {
+    "basic": {
+      "name": "Maksud Hossain",
+      "role": "Software Test Engineer | Travel Storyteller",
+      "description": "Ensuring product quality by profession, capturing moments by passion. As a Software Test Engineer, my life is defined by the pursuit of perfection. I thrive in the details, finding the edge cases that others miss and ensuring that every digital experience is as seamless as it is robust."
+    },
+    "navigation": {
+      "menuBackgroundText": "PRANTO",
+      "links": [
+        {
+          "label": "Photography",
+          "name": "Photography",
+          "href": "photography",
+          "showInFooter": true
+        },
+        {
+          "label": "Blog",
+          "name": "Blog",
+          "href": "blog",
+          "showInFooter": true
+        },
+        {
+          "label": "Home",
+          "name": "Home",
+          "href": "/",
+          "showInFooter": false
+        }
+      ]
+    },
+    "socials": {
+      "links": [
+        {
+          "name": "LinkedIn",
+          "href": "https://www.linkedin.com/in/maksudpranto/",
+          "icon": "FaLinkedinIn",
+          "color": "#0A66C2",
+          "label": "LinkedIn"
+        },
+        {
+          "name": "Facebook",
+          "href": "https://www.facebook.com/03pranto/",
+          "icon": "FaFacebook",
+          "color": "#1877F2",
+          "label": "Facebook"
+        },
+        {
+          "name": "Instagram",
+          "href": "https://www.instagram.com/praaan__to/",
+          "icon": "FaInstagram",
+          "color": "#E4405F",
+          "label": "Instagram"
+        },
+        {
+          "name": "Email",
+          "href": "mailto:maksudpranto@gmail.com",
+          "icon": "IoMdMailOpen",
+          "color": "#EA4335",
+          "label": "Email"
+        }
+      ]
+    },
+    "hero": {
+      "titleFirst": "MAKSUD Hossain",
+      "titleSecond": "Pranto",
+      "accentColor": "#FDC435"
+    },
+    "about": {
+      "label": "My Narrative",
+      "headingNormal": "INTERSECTION OF PRECISION &",
+      "headingItalic": "EXPLORATION.",
+      "image": "/images/about/sections/about/image.jpg",
+      "stat1Value": "5+",
+      "stat1Label": "Years Testing",
+      "stat2Value": "1000+",
+      "stat2Label": "Moments Captured",
+      "accentColor": "#FDC435"
+    },
+    "experience": {
+      "label": "Professional Path",
+      "headingNormal": "PROFESSIONAL",
+      "headingAccent": "JOURNEY.",
+      "accentColor": "#FDC435"
+    },
+    "education": {
+      "label": "Academic Excellence",
+      "headingNormal": "SCHOLASTIC",
+      "headingAccent": "PURSUITS.",
+      "accentColor": "#FDC435"
+    },
+    "photography": {
+      "label": "Visual Journal",
+      "headingNormal": "STILL",
+      "headingAccent": "MOMENTS.",
+      "description": "Capturing the world through my lens. From urban streets to serene nature, every photo tells a unique story.",
+      "autoSlider": false,
+      "sliderInterval": 6000,
+      "accentColor": "#FDC435"
+    },
+    "blog": {
+      "label": "Travel Chronicles",
+      "headingNormal": "DISPATCHES FROM THE",
+      "headingAccent": "ROAD.",
+      "description": "In-depth stories, travel tips, and cultural insights from my journeys around the globe.",
+      "accentColor": "#FDC435"
+    },
+    "footer": {
+      "titleNormal": "LET'S CONNECT",
+      "titleAccent": "TOGETHER.",
+      "description": "Want to chat? I'm always open to discussing new opportunities and creative ideas.",
+      "buttonText": "Let's Talk",
+      "email": "maksudpranto@gmail.com",
+      "accentColor": "#FDC435"
+    }
+  }
+}
