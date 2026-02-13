@@ -8,7 +8,6 @@ export default config({
                 owner: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO_OWNER || 'maksudpranto',
                 name: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO_NAME || 'pranto_portfolio',
             },
-            branchPrefix: 'stage',
         }
         : {
             kind: 'local',

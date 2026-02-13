@@ -74,7 +74,7 @@ export function TravelStories({ stories, accentColor = "#FDC435" }: { stories: a
                                 </div>
 
                                 {/* Posh Title */}
-                                <h3 className="text-sm sm:text-3xl lg:text-4xl font-black text-black tracking-tight leading-tight group-hover/link:sm:translate-x-3 transition-transform duration-500 uppercase line-clamp-2">
+                                <h3 className="text-sm sm:text-3xl lg:text-4xl font-black text-black leading-snug group-hover/link:sm:translate-x-3 transition-all duration-500 line-clamp-3">
                                     {story.title || story.slug?.replace(/-/g, ' ')}
                                 </h3>
 
