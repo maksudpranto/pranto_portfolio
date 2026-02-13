@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { Footer } from "@/components/footer";
 import { reader } from "@/lib/keystatic";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -59,6 +60,7 @@ export default async function RootLayout({
           </main>
           <Toaster />
           <Footer settings={footerSettings} themeColor={themeColor} footerLinks={footerLinks} />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
