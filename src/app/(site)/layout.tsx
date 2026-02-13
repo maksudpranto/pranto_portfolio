@@ -18,7 +18,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "My Portfolio | Software Developer",
+  title: "Test Engineer | Travel Storyteller",
   description: "Welcome to my professional portfolio. I build modern web applications.",
 };
 
