@@ -40,7 +40,7 @@ export default async function PhotographyPage() {
                         <span style={{ color: accentColor }} className="font-black text-[10px] tracking-[0.4em] uppercase pt-4 sm:pt-6">
                             {settings?.label || 'Visual Journal'}
                         </span>
-                        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter text-black leading-[0.9] uppercase">
+                        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-black leading-[0.9] uppercase">
                             {settings?.headingNormal || 'STILL'} <br />
                             <span style={{ color: accentColor }}>{settings?.headingAccent || 'MOMENTS.'}</span>
                         </h1>

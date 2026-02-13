@@ -56,9 +56,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         Back to Stories
                     </Link>
 
-                    <div className="flex flex-col gap-6 mb-16 max-w-[900px]">
-                        <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                            <span className="text-[#FDC435]">Travel Chronicles</span>
+                    <div className="flex flex-col gap-4 sm:gap-6 mb-12 sm:mb-16 max-w-[900px]">
+                        <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                            <span style={{ color: meta.accentColor || '#FDC435' }}>Travel Chronicles</span>
                             {meta.date && (
                                 <>
                                     <span className="w-1 h-1 rounded-full bg-slate-200" />
@@ -67,12 +67,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             )}
                         </div>
 
-                        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-black tracking-tighter leading-[1.1] uppercase">
+                        <h1 className="text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black tracking-tighter leading-[1.1] uppercase break-all">
                             {meta.title || "Untitled Post"}
                         </h1>
 
-                        <div className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">
-                            <Calendar className="w-4 h-4" />
+                        <div className="flex items-center gap-2 text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 sm:mt-2">
+                            <Calendar style={{ color: meta.accentColor || '#FDC435' }} className="w-3 h-3 sm:w-4 sm:h-4" />
                             {meta.date || "N/A"}
                         </div>
                     </div>

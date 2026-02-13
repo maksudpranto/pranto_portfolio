@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, Github, Twitter, Linkedin, Facebook, Instagram, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import { SOCIAL_LINKS } from "@/lib/constants";
+import { MagneticWrapper } from "@/components/ui/magnetic-wrapper";
 
 const defaultNavItems = [
     { name: "Home", href: "/", label: "00" },
@@ -55,33 +56,35 @@ export function Navbar({ themeColor = "#FDC435", navLinks = [], menuBackgroundTe
                     </Link>
 
                     <div className="flex items-center gap-6 z-[110]">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="group flex items-center gap-4 focus:outline-none"
-                            aria-label="Toggle Menu"
-                        >
-                            <span className={cn(
-                                "text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500",
-                                isOpen ? "text-black/40" : "text-black"
-                            )}>
-                                {isOpen ? "Close" : "Menu"}
-                            </span>
+                        <MagneticWrapper strength={0.2}>
+                            <button
+                                onClick={() => setIsOpen(!isOpen)}
+                                className="group flex items-center gap-4 focus:outline-none"
+                                aria-label="Toggle Menu"
+                            >
+                                <span className={cn(
+                                    "text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-500",
+                                    isOpen ? "text-black/40" : "text-black"
+                                )}>
+                                    {isOpen ? "Close" : "Menu"}
+                                </span>
 
-                            <div className="relative w-8 h-8 flex flex-col items-center justify-center gap-1.5">
-                                <motion.span
-                                    animate={isOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-                                    className={cn("w-8 h-[2px] bg-black transition-colors rounded-full", isOpen ? "bg-black" : "bg-black")}
-                                />
-                                <motion.span
-                                    animate={isOpen ? { opacity: 0, x: 20 } : { opacity: 1, x: 0 }}
-                                    className="w-8 h-[2px] bg-black rounded-full"
-                                />
-                                <motion.span
-                                    animate={isOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-                                    className={cn("w-8 h-[2px] bg-black transition-colors rounded-full", isOpen ? "bg-black" : "bg-black")}
-                                />
-                            </div>
-                        </button>
+                                <div className="relative w-8 h-8 flex flex-col items-center justify-center gap-1.5">
+                                    <motion.span
+                                        animate={isOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+                                        className={cn("w-8 h-[2px] bg-black transition-colors rounded-full", isOpen ? "bg-black" : "bg-black")}
+                                    />
+                                    <motion.span
+                                        animate={isOpen ? { opacity: 0, x: 20 } : { opacity: 1, x: 0 }}
+                                        className="w-8 h-[2px] bg-black rounded-full"
+                                    />
+                                    <motion.span
+                                        animate={isOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+                                        className={cn("w-8 h-[2px] bg-black transition-colors rounded-full", isOpen ? "bg-black" : "bg-black")}
+                                    />
+                                </div>
+                            </button>
+                        </MagneticWrapper>
                     </div>
                 </div>
             </header>
@@ -97,15 +100,15 @@ export function Navbar({ themeColor = "#FDC435", navLinks = [], menuBackgroundTe
                         className="fixed inset-0 z-[90] flex flex-col justify-center px-6 sm:px-12 overflow-hidden"
                     >
                         {/* Background Decorative Text */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none">
-                            <h1 className="text-[20vw] font-black text-black/[0.03] leading-none text-center">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none overflow-hidden w-full h-full flex items-center justify-center">
+                            <h1 className="text-[15vw] sm:text-[20vw] font-black text-black/[0.02] sm:text-black/[0.03] leading-none text-center uppercase break-all">
                                 {menuBackgroundText}
                             </h1>
                         </div>
 
-                        <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                        <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-16 items-center">
                             {/* Navigation Links */}
-                            <nav className="lg:col-span-8 flex flex-col gap-4">
+                            <nav className="lg:col-span-8 flex flex-col gap-2 sm:gap-4">
                                 {navItems.map((item, i) => (
                                     <motion.div
                                         key={item.href}
@@ -116,60 +119,61 @@ export function Navbar({ themeColor = "#FDC435", navLinks = [], menuBackgroundTe
                                         <Link
                                             href={item.href}
                                             onClick={() => setIsOpen(false)}
-                                            className="group relative flex items-baseline gap-6"
+                                            className="group relative flex items-baseline gap-4 sm:gap-6"
                                         >
-                                            <span className="text-sm font-black text-black/20 group-hover:text-black transition-colors duration-300">
+                                            <span className="text-[10px] sm:text-sm font-black text-black/20 group-hover:text-black transition-colors duration-300">
                                                 {item.label}
                                             </span>
                                             <span className={cn(
-                                                "text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter uppercase transition-all duration-500",
+                                                "text-3xl sm:text-6xl lg:text-8xl font-black tracking-tighter uppercase transition-all duration-500",
                                                 pathname === item.href ? "text-black" : "text-black/40 group-hover:text-black group-hover:italic"
                                             )}>
                                                 {item.name}
                                             </span>
-                                            <ArrowRight className="w-8 h-8 opacity-0 -translate-x-10 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-black" />
+                                            <ArrowRight className="w-6 h-6 sm:w-8 sm:h-8 opacity-0 -translate-x-10 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-black hidden sm:block" />
                                         </Link>
                                     </motion.div>
                                 ))}
                             </nav>
 
                             {/* Sidebar Info */}
-                            <div className="lg:col-span-4 flex flex-col gap-12 lg:pl-12 lg:border-l border-black/10">
+                            <div className="lg:col-span-4 flex flex-col gap-6 sm:gap-12 lg:pl-12 lg:border-l border-black/10">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.7 }}
-                                    className="flex flex-col gap-4"
+                                    className="flex flex-col gap-3 sm:gap-4"
                                 >
                                     <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black">Let's Connect</span>
-                                    <div className="flex flex-wrap gap-4">
+                                    <div className="flex flex-wrap gap-3 sm:gap-4">
                                         {SOCIAL_LINKS.map((social, i) => {
                                             const Icon: any = social.icon;
                                             const isPath = typeof Icon === "string";
                                             return (
-                                                <Link
-                                                    key={i}
-                                                    href={social.href}
-                                                    style={{ '--hover-brand': social.color } as any}
-                                                    className="p-4 bg-black/10 text-white backdrop-blur-sm rounded-2xl transition-all duration-500 shadow-lg border border-white/20 group overflow-hidden relative flex items-center justify-center min-w-[52px] min-h-[52px]"
-                                                    title={social.name}
-                                                >
-                                                    <div style={{ backgroundColor: social.color }} className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                                    <div className="relative z-10 group-hover:scale-110 transition-transform flex items-center justify-center">
-                                                        {isPath ? (
-                                                            <div className="relative w-5 h-5">
-                                                                <Image
-                                                                    src={Icon}
-                                                                    alt={social.name}
-                                                                    fill
-                                                                    className="object-contain"
-                                                                />
-                                                            </div>
-                                                        ) : (
-                                                            <Icon className="w-5 h-5" />
-                                                        )}
-                                                    </div>
-                                                </Link>
+                                                <MagneticWrapper key={i} strength={0.3}>
+                                                    <Link
+                                                        href={social.href}
+                                                        style={{ '--hover-brand': social.color } as any}
+                                                        className="p-4 bg-black/10 text-white backdrop-blur-sm rounded-2xl transition-all duration-500 shadow-lg border border-white/20 group overflow-hidden relative flex items-center justify-center min-w-[52px] min-h-[52px]"
+                                                        title={social.name}
+                                                    >
+                                                        <div style={{ backgroundColor: social.color }} className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                                        <div className="relative z-10 group-hover:scale-110 transition-transform flex items-center justify-center">
+                                                            {isPath ? (
+                                                                <div className="relative w-5 h-5">
+                                                                    <Image
+                                                                        src={Icon}
+                                                                        alt={social.name}
+                                                                        fill
+                                                                        className="object-contain"
+                                                                    />
+                                                                </div>
+                                                            ) : (
+                                                                <Icon className="w-5 h-5" />
+                                                            )}
+                                                        </div>
+                                                    </Link>
+                                                </MagneticWrapper>
                                             );
                                         })}
                                     </div>
