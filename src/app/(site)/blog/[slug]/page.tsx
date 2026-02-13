@@ -3,8 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { reader } from "@/lib/keystatic";
-import Markdoc from "@markdoc/markdoc";
-import React from "react";
+import { DocumentRenderer } from "@keystatic/core/renderer";
 
 export const dynamicParams = true;
 
@@ -26,9 +25,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
     const { content, ...meta } = post;
     const contentData = await content();
-    const document = (contentData as any)?.node;
-    const transformed = document ? Markdoc.transform(document) : null;
-    const renderedContent = transformed ? Markdoc.renderers.react(transformed, React) : null;
 
     return (
         <article className="min-h-screen bg-white">
@@ -97,7 +93,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             {/* Content Body */}
             <div className="max-w-[1200px] mx-auto px-6 sm:px-12 py-10 sm:py-16">
                 <div className="prose prose-lg max-w-none prose-slate prose-headings:font-bold prose-headings:tracking-tight prose-a:text-[#FDC435] hover:prose-a:text-[#FDC435]/80 transition-colors">
-                    {renderedContent}
+                    <DocumentRenderer document={contentData} />
                 </div>
             </div>
         </article>
