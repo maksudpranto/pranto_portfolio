@@ -49,14 +49,21 @@ export default async function Home() {
         : `/images/photography/${entry.entry.image}`
     }));
 
-  const stories = blogEntries.map(entry => {
-    const { content, ...data } = entry.entry;
-    return {
-      ...data,
-      id: entry.slug,
-      slug: entry.slug
-    };
-  });
+  const stories = blogEntries
+    .map(entry => {
+      const { content, ...data } = entry.entry;
+      return {
+        ...data,
+        id: entry.slug,
+        slug: entry.slug
+      };
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.date || 0).getTime();
+      const dateB = new Date(b.date || 0).getTime();
+      return dateB - dateA;
+    })
+    .slice(0, 5);
 
   return (
     <div className="flex flex-col bg-white text-zinc-950 selection:bg-[#FDC435]/30 min-h-screen">
