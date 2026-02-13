@@ -39,7 +39,7 @@ export function HomePhotographySection({
     };
 
     return (
-        <section id="photography" className="py-24 sm:py-32 relative transition-colors duration-1000">
+        <section id="photography" className="py-12 sm:py-32 relative transition-colors duration-1000 border-b border-black/5">
             {/* Dynamic Background Gradient */}
             <div
                 className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none transition-colors duration-1000 ease-in-out"
@@ -48,14 +48,17 @@ export function HomePhotographySection({
                 }}
             />
 
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12">
-                <div className="flex flex-col mb-16 gap-4 relative z-10 transition-colors duration-1000">
-                    <span style={{ color: bgColor }} className="font-black text-xs tracking-[0.4em] uppercase transition-colors duration-1000">
-                        {settings?.photography?.label || 'Visual Journal'}
-                    </span>
-                    <h2 className="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter text-black leading-none uppercase">
+            <div className="max-w-[1400px] mx-auto px-6 sm:px-12">
+                <div className="flex flex-col mb-6 sm:mb-16 gap-4 sm:gap-6 relative z-10 transition-colors duration-1000">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                        <div style={{ backgroundColor: themeColor }} className="w-8 sm:w-12 h-[1px]" />
+                        <span style={{ color: themeColor }} className="font-black text-[10px] sm:text-xs tracking-[0.4em] uppercase font-heading">
+                            {settings?.photography?.label || 'Visual Journal'}
+                        </span>
+                    </div>
+                    <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-black leading-[0.95] uppercase font-heading">
                         {settings?.photography?.headingNormal || 'STILL'} <br />
-                        <span style={{ color: bgColor }} className="transition-colors duration-1000">
+                        <span style={{ color: themeColor }} className="font-black drop-shadow-sm tracking-tight">
                             {settings?.photography?.headingAccent || 'MOMENTS.'}
                         </span>
                     </h2>

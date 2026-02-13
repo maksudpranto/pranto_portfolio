@@ -92,9 +92,9 @@ export function PhotographyGallery({
     };
 
     return (
-        <div className="flex flex-col gap-16">
-            <div className={`flex flex-col sm:flex-row items-center ${variant === 'stacked' ? 'justify-center sm:justify-center relative' : 'justify-between'} gap-8`}>
-                <div className={`flex flex-wrap gap-4 ${variant === 'stacked' ? 'justify-center flex-1' : ''}`}>
+        <div className="flex flex-col gap-4 sm:gap-16">
+            <div className={`flex flex-col sm:flex-row items-center ${variant === 'stacked' ? 'justify-center sm:justify-center relative' : 'justify-between'} gap-6 sm:gap-8`}>
+                <div className={`flex flex-wrap gap-2 sm:gap-4 ${variant === 'stacked' ? 'justify-center flex-1' : ''}`}>
                     {displayCategories.map((cat) => (
                         <button
                             key={cat.id}
@@ -102,7 +102,7 @@ export function PhotographyGallery({
                                 onFilterChange(cat.id);
                             }}
                             style={filter === cat.id ? { backgroundColor: variant === 'futuristic' ? accentColor : 'black', borderColor: variant === 'futuristic' ? accentColor : 'black' } : { '--hover-border': accentColor } as any}
-                            className={`px-6 py-2 rounded-full border text-xs font-black uppercase tracking-widest transition-all ${filter === cat.id
+                            className={`px-4 sm:px-6 py-1.5 sm:py-2 rounded-full border text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all ${filter === cat.id
                                 ? "text-white shadow-2xl shadow-black/30 scale-105"
                                 : variant === 'futuristic'
                                     ? "bg-black/5 text-black/40 border-black/5 hover:border-[var(--hover-border)] hover:text-black hover:bg-white/80"
@@ -127,8 +127,8 @@ export function PhotographyGallery({
 
             {variant === "stacked" ? (
                 /* Full-Width Stretched Stacked Carousel Gallery */
-                <div className="relative flex flex-col items-center gap-12 py-12 w-full overflow-hidden">
-                    <div className="relative w-full h-[450px] sm:h-[650px] flex items-center justify-center">
+                <div className="relative flex flex-col items-center gap-1 sm:gap-12 py-2 sm:py-12 w-full overflow-hidden">
+                    <div className="relative w-full h-[300px] sm:h-[650px] flex items-center justify-center">
                         <AnimatePresence mode="popLayout" initial={false}>
                             {filteredPhotos.length > 0 && [
                                 (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length,
@@ -159,7 +159,7 @@ export function PhotographyGallery({
                                         }}
                                         exit={{ opacity: 0, scale: 0.8, x: isLeft ? -400 : isRight ? 400 : 0 }}
                                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                                        className="absolute w-[85vw] sm:w-[60vw] max-w-[900px] aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-white shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] cursor-pointer group"
+                                        className="absolute w-[90vw] sm:w-[60vw] max-w-[900px] aspect-[4/3] sm:aspect-[16/9] rounded-xl sm:rounded-2xl overflow-hidden bg-white shadow-none sm:shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] cursor-pointer group"
                                         onClick={() => isCenter ? setSelectedIndex(idx) : setCurrentIndex(idx)}
                                     >
                                         <Image
@@ -172,22 +172,22 @@ export function PhotographyGallery({
                                         />
 
                                         {isCenter && (
-                                            <div className="absolute bottom-10 right-10 z-10">
-                                                <div className="p-5 bg-white/90 backdrop-blur-md rounded-full shadow-2xl transform scale-110 rotate-12 transition-all duration-700 group-hover:scale-125 group-hover:rotate-0">
-                                                    <ArrowRight className="w-8 h-8 text-black -rotate-45" />
+                                            <div className="absolute bottom-4 right-4 sm:bottom-10 sm:right-10 z-10 transition-all duration-700">
+                                                <div className="p-3 sm:p-5 bg-white/90 backdrop-blur-md rounded-full shadow-lg transform scale-100 sm:scale-110 rotate-12 group-hover:rotate-0 transition-all">
+                                                    <ArrowRight className="w-5 h-5 sm:w-8 sm:h-8 text-black -rotate-45" />
                                                 </div>
                                             </div>
                                         )}
 
                                         {/* Premium Floating Title Overlay for Stacked */}
                                         {isCenter && (
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-10 flex flex-col justify-end transition-all duration-700">
-                                                <div className="flex flex-col gap-4 transform translate-y-0 transition-transform duration-700">
-                                                    <div className="flex items-center gap-2 self-start px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-sm">
-                                                        <MapPin className="w-3 h-3 text-white drop-shadow-sm" />
-                                                        <span className="text-[10px] font-bold uppercase tracking-widest text-white drop-shadow-sm">{photo.location}</span>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent p-4 sm:p-10 flex flex-col justify-end transition-all duration-700">
+                                                <div className="flex flex-col gap-2 sm:gap-4 transform translate-y-0 transition-transform duration-700">
+                                                    <div className="flex items-center gap-2 self-start px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-sm">
+                                                        <MapPin className="w-2 h-2 sm:w-3 sm:h-3 text-white drop-shadow-sm" />
+                                                        <span className="text-[8px] sm:text-[10px] font-bold uppercase tracking-widest text-white drop-shadow-sm">{photo.location}</span>
                                                     </div>
-                                                    <h3 className="text-3xl sm:text-5xl font-black font-heading text-white uppercase tracking-wide leading-none">{photo.title}</h3>
+                                                    <h3 className="text-xl sm:text-5xl font-black font-heading text-white uppercase tracking-wide leading-tight sm:leading-none">{photo.title}</h3>
                                                 </div>
                                             </div>
                                         )}
@@ -198,18 +198,18 @@ export function PhotographyGallery({
                     </div>
 
                     {/* Navigation Controls */}
-                    <div className="flex items-center gap-6 mt-8">
+                    <div className="flex items-center gap-6 mt-2 sm:mt-8">
                         <button
                             onClick={handlePrevCarousel}
-                            className="p-4 bg-white border border-black/5 hover:bg-slate-50 rounded-full shadow-sm hover:shadow-md transition-all text-black/40 hover:text-black"
+                            className="p-3 sm:p-4 bg-white border border-black/5 hover:bg-slate-50 rounded-full shadow-sm hover:shadow-md transition-all text-black/40 hover:text-black"
                         >
-                            <ChevronLeft className="w-6 h-6" />
+                            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                         </button>
                         <button
                             onClick={handleNextCarousel}
-                            className="p-4 bg-white border border-black/5 hover:bg-slate-50 rounded-full shadow-sm hover:shadow-md transition-all text-black/40 hover:text-black"
+                            className="p-3 sm:p-4 bg-white border border-black/5 hover:bg-slate-50 rounded-full shadow-sm hover:shadow-md transition-all text-black/40 hover:text-black"
                         >
-                            <ChevronRight className="w-6 h-6" />
+                            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                         </button>
                     </div>
                 </div>
@@ -281,7 +281,7 @@ export function PhotographyGallery({
                     </div>
                 ) : variant === "slick" ? (
                     /* Slick Modern Gallery Style (For Photography Page) */
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-start">
+                    <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-6 items-start">
                         <AnimatePresence mode="popLayout">
                             {visiblePhotos.map((photo, i) => (
                                 <motion.div
@@ -291,7 +291,7 @@ export function PhotographyGallery({
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                                    className="group relative cursor-zoom-in overflow-hidden rounded-2xl bg-slate-50 border border-black/5 aspect-[4/5]"
+                                    className="group relative cursor-zoom-in overflow-hidden rounded-lg sm:rounded-2xl bg-slate-50 border border-black/5 aspect-[4/5]"
                                     onClick={() => setSelectedIndex(i)}
                                 >
                                     <div className="relative w-full h-full">
@@ -303,16 +303,16 @@ export function PhotographyGallery({
                                         />
 
                                         {/* Slick Hover Overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                                            <div className="flex flex-col gap-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                                <div className="flex items-center gap-2">
-                                                    <MapPin style={{ color: accentColor }} className="w-3 h-3" />
-                                                    <span className="text-[10px] text-white/70 font-bold uppercase tracking-[0.2em]">{photo.location}</span>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-2 sm:p-8">
+                                            <div className="flex flex-col gap-1 sm:gap-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                                <div className="flex items-center gap-1 sm:gap-2">
+                                                    <MapPin style={{ color: accentColor }} className="w-2 h-2 sm:w-3 sm:h-3" />
+                                                    <span className="text-[6px] sm:text-[10px] text-white/70 font-bold uppercase tracking-[0.2em]">{photo.location}</span>
                                                 </div>
-                                                <h3 className="text-2xl font-black text-white tracking-tight uppercase leading-none">
+                                                <h3 className="text-[8px] sm:text-2xl font-black text-white tracking-tight uppercase leading-none truncate">
                                                     {photo.title}
                                                 </h3>
-                                                <span style={{ color: accentColor }} className="text-[10px] font-black uppercase tracking-[0.3em] mt-1">{photo.date}</span>
+                                                <span style={{ color: accentColor }} className="text-[6px] sm:text-[10px] font-black uppercase tracking-[0.3em] mt-1">{photo.date}</span>
                                             </div>
                                         </div>
                                     </div>
