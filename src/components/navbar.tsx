@@ -185,7 +185,7 @@ export function Navbar({ themeColor = "#FDC435", navLinks = [], menuBackgroundTe
                                     transition={{ delay: 0.8 }}
                                     className="flex flex-col gap-4"
                                 >
-                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black">Office</span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black">Currently</span>
                                     <p className="text-lg font-bold text-black/60 leading-tight">
                                         Dhaka, Bangladesh <br />
                                         Available Globally.
