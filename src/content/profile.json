@@ -1,8 +1,8 @@
 {
   "appearance": {
     "themeColor": {
-      "discriminant": "custom",
-      "value": "#FF7600"
+      "discriminant": "palette",
+      "value": "#10B981"
     }
   },
   "sections": {
