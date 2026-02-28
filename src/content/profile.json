@@ -1,8 +1,8 @@
 {
   "appearance": {
     "themeColor": {
-      "discriminant": "custom",
-      "value": "#AD2121"
+      "discriminant": "palette",
+      "value": "#10B981"
     }
   },
   "sections": {
@@ -92,7 +92,7 @@
       "accentColor": "#FDC435"
     },
     "education": {
-      "label": "Academic Excellence",
+      "label": "Academic",
       "headingNormal": "SCHOLASTIC",
       "headingAccent": "PURSUITS.",
       "accentColor": "#FDC435"
